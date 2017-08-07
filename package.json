@@ -1,0 +1,19 @@
+{
+  "name": "Ticket-System",
+  "version": "0.0.1",
+  "private": false,
+  "main": "app.js",
+  "dependencies": {
+    "bcrypt": "^1.0.2",
+    "body-parser": "latest",
+    "cookie-parser": "latest",
+    "express": "^4.15.3",
+    "express-session": "^1.15.3",
+    "fs": "0.0.1-security",
+    "mongoose": "^4.10.8",
+    "morgan": "^1.8.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}

@@ -1,0 +1,135 @@
+<div class="top-content">
+
+    <div class="inner-bg">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-2 text">
+                    <h1>Welcome to Skill tester</h1>
+                    <div class="description">
+                        <p>
+                            Please Login or Sign up to test your skills
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-5">
+
+                    <div class="form-box">
+                        <div class="form-top">
+                            <div class="form-top-left">
+                                <h3>Login to our site</h3>
+                                <p>Enter email and password to log on:</p>
+                            </div>
+                            <div class="form-top-right">
+                                <i class="fa fa-key"></i>
+                            </div>
+                        </div>
+                        <div class="form-bottom">
+                            <form role="form" name="loginForm" ng-submit="loginPage.login(loginPage.logData)" class="login-form">
+                                <div class="form-group">
+                                    <label class="sr-only" for="form-username">Email</label>
+                                    <input type="text" name="email" ng-model="loginPage.logData.email" placeholder="Email..." class="form-username form-control"
+                                        id="email" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="form-password">Password</label>
+                                    <input type="password" name="password" ng-model="loginPage.logData.password" placeholder="Password..." class="form-password form-control"
+                                        id="password" required>
+                                </div>
+                                <button type="submit" ng-disabled="loginForm.$invalid" class="btn">Sign in!</button>
+                                <!-- Alert Message -->
+                                <br>
+                                <div class="alert alert-danger" ng-if="!logForm.$invalid && loginPage.response.error">
+                                    {{loginPage.response.message}}
+                                </div>
+                            </form>
+
+                        </div>
+
+                    </div>
+
+                    <div class="social-login">
+                        <h3>...or login with:</h3>
+                        <div class="social-login-buttons">
+                            <a class="btn btn-link-1 btn-link-1-facebook" href="#">
+		                        		<i class="fa fa-facebook"></i> Facebook
+		                        	</a>
+                            <a class="btn btn-link-1 btn-link-1-twitter" href="#">
+		                        		<i class="fa fa-twitter"></i> Twitter
+		                        	</a>
+                            <a class="btn btn-link-1 btn-link-1-google-plus" href="#">
+		                        		<i class="fa fa-google-plus"></i> Google Plus
+		                        	</a>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-sm-1 middle-border"></div>
+                <div class="col-sm-1"></div>
+
+                <div class="col-sm-5">
+
+                    <div class="form-box">
+                        <div class="form-top">
+                            <div class="form-top-left">
+                                <h3>Sign up now</h3>
+                                <p>Fill in the form below to get instant access:</p>
+                            </div>
+                            <div class="form-top-right">
+                                <i class="fa fa-pencil"></i>
+                            </div>
+                        </div>
+                        <div class="form-bottom">
+                            <form role="form" name="regForm" ng-submit="loginPage.register(loginPage.regData)" class="registration-form">
+                                <div class="form-group">
+                                    <label class="sr-only" for="form-first-name">First name</label>
+                                    <input type="text" name="regData.firstName" ng-model="loginPage.regData.firstName" placeholder="First name..." class="form-first-name form-control"
+                                        id="firstName" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="form-last-name">Last name</label>
+                                    <input type="text" name="lastName" ng-model="loginPage.regData.lastName" placeholder="Last name..." class="form-last-name form-control"
+                                        id="lastName" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="form-email">Email</label>
+                                    <input type="text" name="email" placeholder="Email..." class="form-email form-control" id="email" ng-model="loginPage.regData.email"
+                                        required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="form-email">Mobile No:</label>
+                                    <input type="text" name="mobileNumber" placeholder="Mobile..." class="form-email form-control" id="mobileNumber" ng-model="loginPage.regData.mobileNumber"
+                                        required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="form-email">Password:</label>
+                                    <input type="password" name="password" placeholder="Password..." class="form-email form-control" id="password" ng-model="loginPage.regData.password"
+                                        required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="form-email">Confirm Password:</label>
+                                    <input type="password" name="confirmPassword" placeholder="Confirm Password..." class="form-email form-control" id="confirmPassword"
+                                        required>
+                                </div>
+                                <button type="submit" class="btn" ng-disabled="regForm.$invalid">Sign me up!</button>
+                                <!-- Alert Message -->
+                                <br>
+                                <div class="alert alert-danger" ng-if="!regForm.$invalid && loginPage.response.error">
+                                    {{loginPage.response.message}}
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
