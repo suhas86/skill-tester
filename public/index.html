@@ -2,7 +2,7 @@
 <html lang="en" ng-app="skilltest">
 
 <head>
-  <title>Bootstrap Example</title>
+  <title>Skill Tester</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -29,7 +29,7 @@
   <link href="css/form-elements.css" rel="stylesheet">
 </head>
 
-<body>
+<body  ng-controller="loginController as main" ng-show="main.loadme" >
 
   <nav class="navbar navbar-inverse">
     <div class="container-fluid">
@@ -48,7 +48,10 @@
           <li><a href="#">Contact</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="#/log-in"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+          <li><a ng-show="!main.isLoggedIn" href="#/log-in"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a ng-show="main.isLoggedIn" ng-click="main.logout();"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
         </ul>
       </div>
     </div>
@@ -79,6 +82,8 @@
   <script type="text/javascript" src="angular/services/myservices.js"></script>
   <!-- Routes -->
   <script type="text/javascript" src="angular/routes/routes.js"></script>
+   <!-- Factory -->
+    <script type="text/javascript" src="angular/factories/authFactory.js"></script>
 </body>
 
 </html>

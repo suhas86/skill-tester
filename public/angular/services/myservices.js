@@ -1,4 +1,4 @@
-myApp.service('SkillService', function ($http) {
+myApp.service('SkillService', function ($http, authToken) {
     var main = this;
 
     this.signUp = function (data) {
@@ -14,5 +14,27 @@ myApp.service('SkillService', function ($http) {
             data: data,
             url: '/users/login'
         })
+    }
+    this.setToken=function(token){
+       return authToken.setToken(token);
+    }
+    //Is logged in
+    this.isLoggedIn = function () {
+        if (authToken.getToken()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    this.getUser=function(){
+        if(authToken.getToken()){
+            return $http({
+                method: "POST",
+                url: '/users/profile'
+            })
+        } else {
+            $q.reject({message:'User has no token'})
+        }
     }
 })

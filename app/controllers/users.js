@@ -5,6 +5,9 @@ var userRouter = express.Router();
 var userModel = mongoose.model('User');
 
 var responseGenerator = require('./../../libs/responseGenerator');
+var config = require('./../../config/config');
+var jwt = require('jwt-simple');
+
 module.exports.controller = function (app) {
 
     userRouter.post('/signup', function (req, res) {
@@ -26,10 +29,10 @@ module.exports.controller = function (app) {
                     // res.send(myResponse);
                     res.send(myResponse);
                 } else {
-                  //  var token = jwt.encode(newUser, config.secret);
+                    var token = jwt.encode(newUser, config.secret);
                     var myResponse = responseGenerator.generate(false, "",
                         200, newUser);
-                 //   myResponse.token = 'JWT ' + token;
+                    myResponse.token = 'JWT ' + token;
                     /*
                     myMailer.sendMail("Welcome",
                         "Welcome to Ticket Support. Please let us know how can we help you",
@@ -65,11 +68,11 @@ module.exports.controller = function (app) {
                     user.comparePassword(req.body.password, function (err, isMatch) {
                         if (isMatch && !err) {
                             // if user is found and password is right create a token
-                        //    var token = jwt.encode(user, config.secret);
+                            var token = jwt.encode(user, config.secret);
                             // return the information including token as JSON
                             var myResponse = responseGenerator.generate(false, "",
                                 200, user);
-                       //     myResponse.token = 'JWT ' + token;
+                            myResponse.token = 'JWT ' + token;
                             res.send(myResponse);
                         } else {
                             var myResponse = responseGenerator.generate(true, "Please check your password ",
@@ -87,5 +90,24 @@ module.exports.controller = function (app) {
 
     });
 
+    //Get user
+    userRouter.use(function(req,res,next){
+        var token=req.body.token || req.body.query || req.headers['x-access-token'];
+
+        if(token){
+           /* console.log(token)
+            var decoded = jwt.decode(token, config.secret);
+            console.log(decoded)
+            req.decoded = decoded; 
+            next();*/
+        } else {
+            var myResponse = responseGenerator.generate(true,
+                "Token not provided", 403, null);
+            res.send(myResponse);
+        }
+    })
+    userRouter.post('/profile',function(req,res){
+        res.send(req.decoded);
+    })
     app.use('/users', userRouter);
 }

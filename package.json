@@ -10,6 +10,7 @@
     "express": "^4.15.3",
     "express-session": "^1.15.3",
     "fs": "0.0.1-security",
+    "jwt-simple": "^0.5.1",
     "mongoose": "^4.10.8",
     "morgan": "^1.8.2"
   },
