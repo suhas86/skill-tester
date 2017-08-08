@@ -7,7 +7,9 @@ var logger = require('morgan');
 var path = require('path');
 // module for maintaining sessions
 //var session = require('express-session');
-
+//Passport
+var passport=require('passport');
+var myPassport=require('./middlewares/passport')(app,passport);
 app.use(logger('dev'));
 
 var bodyParser = require('body-parser');
@@ -16,7 +18,7 @@ app.use(bodyParser.json({ limit: '10mb', extended: true }));
 app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
 
 
-mongoose.connect('mongodb://localhost/skill-tester');
+mongoose.connect('mongodb://localhost/skill-tester1');
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, '#MongoDB - connection error'));

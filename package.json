@@ -8,11 +8,13 @@
     "body-parser": "latest",
     "cookie-parser": "latest",
     "express": "^4.15.3",
-    "express-session": "^1.15.3",
+    "express-session": "^1.15.5",
     "fs": "0.0.1-security",
     "jwt-simple": "^0.5.1",
     "mongoose": "^4.10.8",
-    "morgan": "^1.8.2"
+    "morgan": "^1.8.2",
+    "passport": "^0.3.2",
+    "passport-facebook": "^2.1.1"
   },
   "devDependencies": {
     "nodemon": "^1.11.0"

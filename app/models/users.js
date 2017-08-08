@@ -8,7 +8,8 @@ var userSchema = new Schema({
     email: { type: String, default: '', required: true, unique: true },
     mobileNumber: { type: Number, default: '' },
     password: { type: String, default: '' },
-    userType: { type: Number, default: 2 }
+    userType: { type: Number, default: 2 },
+    provider:{type:String,default:'Web'}
 })
 
 userSchema.pre('save', function (next) {
