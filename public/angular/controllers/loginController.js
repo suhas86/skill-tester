@@ -1,5 +1,5 @@
-myApp.controller('loginController', ['SkillService', '$location','$rootScope',
-function (SkillService,$location,$rootScope) {
+myApp.controller('loginController', ['SkillService', '$location','$rootScope','$window',
+function (SkillService,$location,$rootScope,$window) {
     var main = this;
     this.response = {};
     main.loadme=false;
@@ -47,6 +47,11 @@ function (SkillService,$location,$rootScope) {
         }, (err) => {
             main.response = response.data;
         })
+    }
+
+    //Facebook
+    this.facebook=function(){
+        $window.location=$window.location.protocol+'//'+$window.location.host+'/auth/facebook'
     }
 
     //Logout

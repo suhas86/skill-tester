@@ -56,7 +56,7 @@ module.exports = function (app, passport) {
 
             });
             console.log("Profile ", profile._json.email);
-            done(null, profile);
+         //   done(null, profile);
         }
     ));
 

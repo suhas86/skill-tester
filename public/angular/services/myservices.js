@@ -26,7 +26,10 @@ myApp.service('SkillService', function ($http, authToken) {
             return false;
         }
     }
-
+    //Set Token from facebook
+    this.facebook=function(token){
+        authToken.setToken(token);
+    }
     this.getUser=function(){
         if(authToken.getToken()){
             return $http({

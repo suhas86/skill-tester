@@ -12,6 +12,11 @@ myApp.config(['$routeProvider', function ($routeProvider) {
             // what is the alias of that controller.
             controllerAs: 'loginPage'
         }).
+         when('/facebook/:token', {
+            templateUrl: './views/social-view.html',
+            controller:'facebookController',
+            controllerAs:'fbPage'
+        }).
         otherwise(
         {
             //redirectTo:'/'

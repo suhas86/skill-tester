@@ -15,6 +15,7 @@ var userSchema = new Schema({
 userSchema.pre('save', function (next) {
     var user = this;
     if (this.isModified('password') || this.isNew) {
+        if(user.password!=undefined || user.password!=''){
         bcrypt.genSalt(10, function (err, salt) {
             if (err) {
                 return next(err);
@@ -27,6 +28,9 @@ userSchema.pre('save', function (next) {
                 next();
             });
         });
+    } else {
+        return next();
+    }
     } else {
         return next();
     }
