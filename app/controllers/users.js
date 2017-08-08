@@ -91,22 +91,30 @@ module.exports.controller = function (app) {
     });
 
     //Get user
-    userRouter.use(function(req,res,next){
-        var token=req.body.token || req.body.query || req.headers['x-access-token'];
+    userRouter.use(function (req, res, next) {
+        var token = req.body.token || req.body.query || req.headers['x-access-token'];
 
-        if(token){
-           /* console.log(token)
-            var decoded = jwt.decode(token, config.secret);
-            console.log(decoded)
-            req.decoded = decoded; 
-            next();*/
+        if (token) {
+            console.log(token)
+            var parted = token.split(' ');
+            if (parted.length === 2) {
+                var decoded = jwt.decode(parted[1], config.secret);
+                console.log(decoded)
+                req.decoded = decoded;
+                next();
+            } else {
+                var myResponse = responseGenerator.generate(true,
+                    "Invalid token", 403, null);
+                res.send(myResponse);
+            }
+
         } else {
             var myResponse = responseGenerator.generate(true,
                 "Token not provided", 403, null);
             res.send(myResponse);
         }
     })
-    userRouter.post('/profile',function(req,res){
+    userRouter.post('/profile', function (req, res) {
         res.send(req.decoded);
     })
     app.use('/users', userRouter);

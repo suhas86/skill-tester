@@ -17,7 +17,7 @@ function (SkillService,$location,$rootScope) {
             main.loadme=true;
         }
     });
-   /* if(SkillService.isLoggedIn())
+    /*if(SkillService.isLoggedIn())
     {
         SkillService.getUser().then((data)=>{
             console.log(data);
