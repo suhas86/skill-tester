@@ -53,6 +53,10 @@ function (SkillService,$location,$rootScope,$window) {
     this.facebook=function(){
         $window.location=$window.location.protocol+'//'+$window.location.host+'/auth/facebook'
     }
+    //Google
+    this.google=function(){
+        $window.location=$window.location.protocol+'//'+$window.location.host+'/auth/google'
+    }
 
     //Logout
     this.logout=function(){

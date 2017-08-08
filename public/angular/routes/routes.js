@@ -17,6 +17,11 @@ myApp.config(['$routeProvider', function ($routeProvider) {
             controller:'facebookController',
             controllerAs:'fbPage'
         }).
+        when('/google/:token', {
+            templateUrl: './views/social-view.html',
+            controller:'facebookController',
+            controllerAs:'fbPage'
+        }).
         otherwise(
         {
             //redirectTo:'/'
