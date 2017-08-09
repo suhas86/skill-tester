@@ -35,7 +35,7 @@
                     <tr ng-repeat="question in ediTestPage.testData.questions">
                         <td>{{question.question}}</td>
                         <td>{{question.answer}}</td>
-                        <td><a  ng-href="#/admin-test-edit/{{tests._id}}">Edit</td>
+                        <td><a ng-click="ediTestPage.getQuestion(question)">Edit</a></td>
                     </tr>
                 </tbody>
             </table>
@@ -68,7 +68,9 @@
                 <input type="text" placeholder="Correct Answer" class="form-control" id="answer" ng-model="ediTestPage.qData.answer" 
                 name="question" required>
             </div>
-            <button type="submit" ng-disabled="qForm.$invalid"  class="btn">Save Question</button>
+            <button ng-show="ediTestPage.isSave" type="submit" ng-disabled="qForm.$invalid"  class="btn">Save Question</button>
+            <button ng-show="!ediTestPage.isSave" type="button" ng-click="ediTestPage.updateQuestion()" ng-disabled="qForm.$invalid"  class="btn">Update Question</button>
+            <button type="button" ng-click="ediTestPage.clear()"  class="btn">Clear</button>
            </form>
         </div>
     </div>

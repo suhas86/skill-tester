@@ -102,7 +102,9 @@ module.exports.controller = function (app) {
     testRouter.put('/admin/update/:id', function (req, res) {
         testModel.findByIdAndUpdate({
             _id: req.params.id
-        }, req.body,{ new: true }, function (err, response) {
+        }, req.body, {
+            new: true
+        }, function (err, response) {
             if (err) {
                 var myResponse = responseGenerator.generate(true,
                     "Oops some went wrong " + err, 500, null);
@@ -172,12 +174,11 @@ module.exports.controller = function (app) {
                                 var myResponse = responseGenerator.generate(true,
                                     "Oops some went wrong " + err, 500, null);
                                 res.send(myResponse);
-                            } else if(question==null || question==undefined){
+                            } else if (question == null || question == undefined) {
                                 var myResponse = responseGenerator.generate(true,
                                     "Oops some went wrong ", 500, null);
                                 res.send(myResponse);
-                            } 
-                            else {
+                            } else {
                                 var myResponse = responseGenerator.generate(false, "",
                                     200, response);
                                 res.send(myResponse);
@@ -195,7 +196,45 @@ module.exports.controller = function (app) {
     })*/
 
     //Update question
-
+    testRouter.put('/updatequestion/:test_id', function (req, res) {
+        questionModel.findByIdAndUpdate({
+            _id: req.body._id
+        }, req.body, {
+            new: true
+        }, function (err, question) {
+            if (err) {
+                var myResponse = responseGenerator.generate(true,
+                    "Oops some went wrong " + err, 500, null);
+                res.send(myResponse);
+            } else {
+                //On updating question model update test model
+                testModel.findById({
+                    _id: req.params.test_id
+                }, function (err, test) {
+                    if (err) {
+                        var myResponse = responseGenerator.generate(true,
+                            "Oops some went wrong " + err, 500, null);
+                        res.send(myResponse);
+                    } else {
+                        test.questions.splice(req.params.index, 1);
+                        var temp = new questionModel(req.body);
+                        test.questions.push(temp);
+                        test.save(function (err, response) {
+                            if (err) {
+                                var myResponse = responseGenerator.generate(true,
+                                    "Oops some went wrong " + err, 500, null);
+                                res.send(myResponse);
+                            } else {
+                                var myResponse = responseGenerator.generate(false, "",
+                                    200, response);
+                                res.send(myResponse);
+                            }
+                        })
+                    }
+                })
+            }
+        })
+    })
     //Delete question
 
 

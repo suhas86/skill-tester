@@ -79,5 +79,13 @@ myApp.service('SkillService', function ($http, authToken) {
             url:'/test/createquestion',
             data:data
         })
+    },
+    //Update question
+    this.updateQuestion=function(data,id){
+        return $http({
+            method:'PUT',
+            url:'/test/updatequestion/'+id,
+            data:data
+        })
     }
 })
