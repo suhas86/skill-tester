@@ -22,6 +22,18 @@ myApp.config(['$routeProvider', function ($routeProvider) {
             controller:'facebookController',
             controllerAs:'fbPage'
         }).
+        when('/admin-dashboard', {
+            templateUrl: './views/admin-dashboard-view.html',
+            controller: 'adminController',
+            // what is the alias of that controller.
+            controllerAs: 'adminPage'
+        }).
+         when('/admin-test-edit/:id', {
+            templateUrl: './views/admin-test-view.html',
+            controller: 'adminTestController',
+            // what is the alias of that controller.
+            controllerAs: 'ediTestPage'
+        }).
         otherwise(
         {
             //redirectTo:'/'

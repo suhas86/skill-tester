@@ -40,4 +40,21 @@ myApp.service('SkillService', function ($http, authToken) {
             $q.reject({message:'User has no token'})
         }
     }
+
+    /**********Admin Apis ***********************/
+    //Create test
+    this.createTest=function(data){
+        return $http({
+            method:"POST",
+            url:'/test/admin/create',
+            data:data
+        })
+    }
+    //Get Test
+    this.getAllTest=function(){
+        return $http({
+            method:"GET",
+            url:'/test/admin/all'
+        })
+    }
 })

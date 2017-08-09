@@ -44,6 +44,9 @@ function (SkillService,$location,$rootScope,$window) {
             main.response = response.data;
             SkillService.setToken(main.response.token);
             main.logData=''; 
+            if(main.response.data.userType==1){
+                $location.path('/admin-dashboard');
+            }
         }, (err) => {
             main.response = response.data;
         })

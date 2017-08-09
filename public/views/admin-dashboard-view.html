@@ -1,0 +1,49 @@
+<h2 class="text-center">Admin Dashboard</h2>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h3>List of tests</h3>
+            <p>Click on edit to edit test</p>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Test Name</th>
+                        <th>Category</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="tests in adminPage.list">
+                        <td>{{tests.name}}</td>
+                        <td>{{tests.category}}</td>
+                        <td><a  ng-href="#/admin-test-edit/{{tests._id}}">Edit</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-6">
+            <h3 class="text-center">Create Test</h3>
+            <p>Create a new test</p>
+            <form name="testForm" ng-submit="adminPage.createTicket(adminPage.testData)">
+                <div class="form-group">
+                    <input type="text" placeholder="Name" class="form-control" id="testName" ng-model="adminPage.testData.name" name="name" required>
+                </div>
+                <div class="form-group">
+
+                    <input type="text" placeholder="Category" class="form-control" id="category" ng-model="adminPage.testData.category" name="category"
+                        required>
+                </div>
+                <div class="form-group">
+                    <textarea class="form-control" placeholder="Description" rows="5" id="description" ng-model="adminPage.testData.description"
+                        name="description"></textarea>
+                </div>
+                <button type="submit" ng-disabled="testForm.$invalid" class="btn">Submit</button>
+            </form>
+            <div class="alert alert-danger" ng-show="adminPage.response.error">
+               {{response.data.message}}
+            </div>
+        </div>
+    </div>
+
+</div>

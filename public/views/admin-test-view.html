@@ -1,0 +1,85 @@
+<h2 class="text-center">Edit Test</h2>
+
+<div class="container">
+    <div class="row">
+        <form name="testForm" ng-submit="ediTestPage.updateTicket(ediTestPage.testData)">
+            <div class="form-group">
+                <input type="text" placeholder="Name" class="form-control" id="testName" ng-model="ediTestPage.testData.name" name="name"
+                    required>
+            </div>
+            <div class="form-group">
+
+                <input type="text" placeholder="Category" class="form-control" id="category" ng-model="ediTestPage.testData.category" name="category"
+                    required>
+            </div>
+            <div class="form-group">
+                <textarea class="form-control" placeholder="Description" rows="5" id="description" ng-model="ediTestPage.testData.description"
+                    name="description"></textarea>
+            </div>
+            <button type="submit" ng-disabled="testForm.$invalid" class="btn">Submit</button>
+        </form>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <h2>List of questions</h2>
+            <p>Questions with correct answers</p>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Question</th>
+                        <th>Answer</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>John</td>
+                        <td>Doe</td>
+                        <td>john@example.com</td>
+                    </tr>
+                    <tr>
+                        <td>Mary</td>
+                        <td>Moe</td>
+                        <td>mary@example.com</td>
+                    </tr>
+                    <tr>
+                        <td>July</td>
+                        <td>Dooley</td>
+                        <td>july@example.com</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-6">
+           <h2>Add Question</h2>
+           <p>Add Questions with four options along with correct answer</p>
+           <form>
+            <div class="form-group">
+                <input type="text" placeholder="Question" class="form-control" id="question" ng-model="ediTestPage.qData.question" 
+                name="question" required>
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="Option 1" class="form-control" id="option1" ng-model="ediTestPage.qData.option1" 
+                name="question" required>
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="Option 2" class="form-control" id="option2" ng-model="ediTestPage.qData.option2" 
+                name="question" required>
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="Option 3" class="form-control" id="option3" ng-model="ediTestPage.qData.option3" 
+                name="question" required>
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="Option 4" class="form-control" id="option4" ng-model="ediTestPage.qData.option4" 
+                name="question" required>
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="Correct Answer" class="form-control" id="answer" ng-model="ediTestPage.qData.answer" 
+                name="question" required>
+            </div>
+            <button type="submit"  class="btn">Save Question</button>
+           </form>
+        </div>
+    </div>
+</div>
