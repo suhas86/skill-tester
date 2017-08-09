@@ -3,6 +3,7 @@ var express = require('express');
 
 var testRouter = express.Router();
 var testModel = mongoose.model('Test');
+var questionModel = mongoose.model('Question');
 
 var responseGenerator = require('./../../libs/responseGenerator');
 var config = require('./../../config/config');
@@ -72,7 +73,130 @@ module.exports.controller = function (app) {
             }
         })
 
-    })
+    });
+
+    //Get Test by ID
+    testRouter.get('/single/:id', function (req, res) {
+        testModel.findOne({
+            _id: req.params.id
+        }, function (err, response) {
+            if (err) {
+                var myResponse = responseGenerator.generate(true,
+                    "Oops some went wrong " + err, 500, null);
+                // res.send(myResponse);
+                res.send(myResponse);
+            } else if (response == null || response == undefined) {
+                var myResponse = responseGenerator.generate(true,
+                    "This test doesnt exists", 404, null);
+                // res.send(myResponse);
+                res.send(myResponse);
+            } else {
+                var myResponse = responseGenerator.generate(false, "",
+                    200, response);
+                res.send(myResponse);
+            }
+        })
+    });
+
+    //Update Test
+    testRouter.put('/admin/update/:id', function (req, res) {
+        testModel.findByIdAndUpdate({
+            _id: req.params.id
+        }, req.body,{ new: true }, function (err, response) {
+            if (err) {
+                var myResponse = responseGenerator.generate(true,
+                    "Oops some went wrong " + err, 500, null);
+                res.send(myResponse);
+            } else {
+                var myResponse = responseGenerator.generate(false, "",
+                    200, response);
+                res.send(myResponse);
+            }
+        })
+    });
+
+    //Delete Test
+    testRouter.get('/delete/:id', function (req, res) {
+        testModel.findByIdAndRemove({
+            _id: req.params.id
+        }, function (err, response) {
+            if (err) {
+                var myResponse = responseGenerator.generate(true,
+                    "Oops some went wrong " + err, 500, null);
+                res.send(myResponse);
+            } else if (response == null || response == undefined) {
+                var myResponse = responseGenerator.generate(true,
+                    "Test record not found ", 404, null);
+                res.send(myResponse);
+            } else {
+                var myResponse = responseGenerator.generate(false, "",
+                    200, response);
+                res.send(myResponse);
+            }
+        })
+    });
+
+    //Create question
+    testRouter.post('/createquestion', function (req, res) {
+
+        var question = new questionModel({
+            question: req.body.question,
+            option1: req.body.option1,
+            option2: req.body.option2,
+            option3: req.body.option3,
+            option4: req.body.option4,
+            answer: req.body.answer
+        });
+
+        testModel.findById({
+            _id: req.body.test_id
+        }, function (err, test) {
+            if (err) {
+                var myResponse = responseGenerator.generate(true,
+                    "Oops some went wrong " + err, 500, null);
+                res.send(myResponse);
+            } else if (test.questions.length == 10) {
+                var myResponse = responseGenerator.generate(true,
+                    "Maximum question limit has been reached", 500, null);
+                res.send(myResponse);
+            } else {
+                question.save(function (err) {
+                    if (err) {
+                        var myResponse = responseGenerator.generate(true,
+                            "Oops some went wrong " + err, 500, null);
+                        res.send(myResponse);
+                    } else {
+                        test.questions.push(question);
+                        test.save(function (err, response) {
+                            if (err) {
+                                var myResponse = responseGenerator.generate(true,
+                                    "Oops some went wrong " + err, 500, null);
+                                res.send(myResponse);
+                            } else if(question==null || question==undefined){
+                                var myResponse = responseGenerator.generate(true,
+                                    "Oops some went wrong ", 500, null);
+                                res.send(myResponse);
+                            } 
+                            else {
+                                var myResponse = responseGenerator.generate(false, "",
+                                    200, response);
+                                res.send(myResponse);
+                            }
+                        })
+                    }
+                })
+            }
+        })
+    });
+
+    //To get questions
+    /*testRouter.get('/question/:id',function(req,res){
+
+    })*/
+
+    //Update question
+
+    //Delete question
 
 
     app.use('/test', testRouter);

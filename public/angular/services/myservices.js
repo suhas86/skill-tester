@@ -57,4 +57,27 @@ myApp.service('SkillService', function ($http, authToken) {
             url:'/test/admin/all'
         })
     }
+    //Get test by id
+    this.getTestById=function(id){
+        return $http({
+            method:"GET",
+            url:'/test/single/'+id
+        })
+    }
+    //Update test
+    this.updateTest=function(data,id){
+        return $http({
+            method:"PUT",
+            url:'/test/admin/update/'+id,
+            data:data
+        })
+    }
+    //Create question
+    this.createQuestion=function(data){
+        return $http({
+            method:'POST',
+            url:'/test/createquestion',
+            data:data
+        })
+    }
 })

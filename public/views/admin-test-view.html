@@ -2,7 +2,7 @@
 
 <div class="container">
     <div class="row">
-        <form name="testForm" ng-submit="ediTestPage.updateTicket(ediTestPage.testData)">
+        <form name="testForm" ng-submit="ediTestPage.updateTest(ediTestPage.testData)">
             <div class="form-group">
                 <input type="text" placeholder="Name" class="form-control" id="testName" ng-model="ediTestPage.testData.name" name="name"
                     required>
@@ -32,20 +32,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>John</td>
-                        <td>Doe</td>
-                        <td>john@example.com</td>
-                    </tr>
-                    <tr>
-                        <td>Mary</td>
-                        <td>Moe</td>
-                        <td>mary@example.com</td>
-                    </tr>
-                    <tr>
-                        <td>July</td>
-                        <td>Dooley</td>
-                        <td>july@example.com</td>
+                    <tr ng-repeat="question in ediTestPage.testData.questions">
+                        <td>{{question.question}}</td>
+                        <td>{{question.answer}}</td>
+                        <td><a  ng-href="#/admin-test-edit/{{tests._id}}">Edit</td>
                     </tr>
                 </tbody>
             </table>
@@ -53,7 +43,7 @@
         <div class="col-md-6">
            <h2>Add Question</h2>
            <p>Add Questions with four options along with correct answer</p>
-           <form>
+           <form name="qForm" ng-submit="ediTestPage.createQuestion(ediTestPage.qData)">
             <div class="form-group">
                 <input type="text" placeholder="Question" class="form-control" id="question" ng-model="ediTestPage.qData.question" 
                 name="question" required>
@@ -78,7 +68,7 @@
                 <input type="text" placeholder="Correct Answer" class="form-control" id="answer" ng-model="ediTestPage.qData.answer" 
                 name="question" required>
             </div>
-            <button type="submit"  class="btn">Save Question</button>
+            <button type="submit" ng-disabled="qForm.$invalid"  class="btn">Save Question</button>
            </form>
         </div>
     </div>
