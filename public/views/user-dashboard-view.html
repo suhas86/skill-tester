@@ -1,0 +1,29 @@
+<h2 class="text-center">Your Dashboard</h2>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h3>List of tests available</h3>
+            <p>Please select from the list below</p>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Test Name</th>
+                        <th>Category</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="tests in userDashPage.list">
+                        <td>{{tests.name}}</td>
+                        <td>{{tests.category}}</td>
+                        <td><a  ng-href="#/take-test/{{tests._id}}">Take Test</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-6">
+            Dashboard will come here
+        </div>
+    </div>
+</div>

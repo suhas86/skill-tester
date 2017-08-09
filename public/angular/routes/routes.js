@@ -34,6 +34,18 @@ myApp.config(['$routeProvider', function ($routeProvider) {
             // what is the alias of that controller.
             controllerAs: 'ediTestPage'
         }).
+        when('/user-dashboard', {
+            templateUrl: './views/user-dashboard-view.html',
+            controller: 'userDashController',
+            // what is the alias of that controller.
+            controllerAs: 'userDashPage'
+        }).
+        when('/take-test/:id', {
+            templateUrl: './views/test-view.html',
+            controller: 'testController',
+            // what is the alias of that controller.
+            controllerAs: 'testPage'
+        }).
         otherwise(
         {
             //redirectTo:'/'

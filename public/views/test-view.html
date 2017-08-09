@@ -1,0 +1,31 @@
+<h2 class="text-center">{{testPage.testData.name}}</h2>
+<p>{{testPage.testData.description}}</p>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="question-panel" ng-repeat="question in testPage.testData.questions">
+                <h3>{{question.question}}</h3>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <input type="radio" name="option"/>
+                        {{question.option1}}
+                    </li>
+                    <li class="list-group-item">
+                        <input type="radio" name="option"/>
+                        {{question.option2}}
+                    </li>
+                    <li class="list-group-item">
+                        <input type="radio" name="option"/>
+                        {{question.option3}}
+                    </li>
+                    <li class="list-group-item">
+                        <input type="radio" name="option"/>
+                        {{question.option4}}
+                    </li>
+                </ul>
+            </div>
+             <button type="button" class="btn">Submit Test</button>
+        </div>
+    </div>
+</div>
