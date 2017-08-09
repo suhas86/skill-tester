@@ -8,6 +8,8 @@ var questionModel = mongoose.model('Question');
 var responseGenerator = require('./../../libs/responseGenerator');
 var config = require('./../../config/config');
 var jwt = require('jwt-simple');
+// Load the full build. 
+var _ = require('lodash');
 module.exports.controller = function (app) {
     //Authenticate user before accessing APIS(Middleware)
     testRouter.use(function (req, res, next) {
@@ -216,7 +218,13 @@ module.exports.controller = function (app) {
                             "Oops some went wrong " + err, 500, null);
                         res.send(myResponse);
                     } else {
-                        test.questions.splice(req.params.index, 1);
+
+                     console.log("Question ID",question._id)
+                         var index = _.findIndex(test.questions, { _id: question._id });
+                       //  var index = _.findIndex(test.questions, function(obj){ return _.has(obj, question._id)});
+                         console.log("Index ",index);
+                        test.questions.splice(index, 1);
+                       
                         var temp = new questionModel(req.body);
                         test.questions.push(temp);
                         test.save(function (err, response) {

@@ -53,7 +53,6 @@ myApp.controller('adminTestController', ['SkillService', '$routeParams',
         this.updateQuestion = function () {
             console.log(main.qData);
             SkillService.updateQuestion(main.qData, main.id).then((response) => {
-                console.log(response.data)
                 main.qData = '';
                 main.testData = response.data.data;
             }, (err) => {
