@@ -8,6 +8,7 @@ myApp.controller('testController', ['SkillService', '$routeParams',
         main.showNext = true;
         main.buttonText="Next";
         main.score = 0;
+        main.testResult={};
         this.getTestById = function (id) {
             SkillService.getTestById(id).then((response) => {
                 main.testData = response.data.data;
@@ -63,7 +64,7 @@ myApp.controller('testController', ['SkillService', '$routeParams',
                 var wrongAnswer=main.questions.length-correctAnswer;
                 console.log("Submit test")
                 var data={
-                    testId: main.id,
+                    testIds: main.id,
                     testScore:main.score,
                     correctAnswers:correctAnswer,
                     wrongAnswers:wrongAnswer
@@ -73,6 +74,13 @@ myApp.controller('testController', ['SkillService', '$routeParams',
                 SkillService.saveTest(data).then((response)=>{
                     //Display final score for the user
                     console.log(response.data);
+                    if(response.data.error){
+
+                    } else {
+                        main.showNext=false;
+                        main.testResult=response.data.data;
+                    }
+                    
                 },(err)=>{
                     alert("Oops something gone wrong. Please try again")
                 })
