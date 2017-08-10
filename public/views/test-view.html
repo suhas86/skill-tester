@@ -3,29 +3,36 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-6">
-            <div class="question-panel" ng-repeat="question in testPage.testData.questions">
-                <h3>{{question.question}}</h3>
+        <div class="col-md-3">
+            <div class="question-panel">
+                <h3>Question: {{testPage.questions[testPage.questionIndex].question}}</h3>
+                <p>Options</p>
                 <ul class="list-group">
                     <li class="list-group-item">
-                        <input type="radio" name="option"/>
-                        {{question.option1}}
+                        <input type="radio" ng-value="testPage.questions[testPage.questionIndex].option1"
+                         name="option" ng-model="testPage.test"/>
+                        {{testPage.questions[testPage.questionIndex].option1}}
                     </li>
                     <li class="list-group-item">
-                        <input type="radio" name="option"/>
-                        {{question.option2}}
+                        <input type="radio" ng-value="testPage.questions[testPage.questionIndex].option2"
+                         name="option" ng-model="testPage.test"/>
+                        {{testPage.questions[testPage.questionIndex].option2}}
                     </li>
                     <li class="list-group-item">
-                        <input type="radio" name="option"/>
-                        {{question.option3}}
+                        <input type="radio" ng-value="testPage.questions[testPage.questionIndex].option3"
+                        name="option" ng-model="testPage.test"/>
+                        {{testPage.questions[testPage.questionIndex].option3}}
                     </li>
                     <li class="list-group-item">
-                        <input type="radio" name="option"/>
-                        {{question.option4}}
+                        <input type="radio"  ng-value="testPage.questions[testPage.questionIndex].option4"
+                        name="option" ng-model="testPage.test"/>
+                        {{testPage.questions[testPage.questionIndex].option4}}
                     </li>
                 </ul>
             </div>
-             <button type="button" class="btn">Submit Test</button>
+             <button type="button" ng-click="testPage.getNextQuestion()" class="btn">{{testPage.buttonText}}</button>
+             <!--<button type="button" ng-show="!testPage.showNext"  class="btn">Submit Test</button>-->
         </div>
+        <div class="col-md-9"></div>
     </div>
 </div>

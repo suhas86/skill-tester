@@ -88,4 +88,21 @@ myApp.service('SkillService', function ($http, authToken) {
             data:data
         })
     }
+/*********** User Test APIS ********************************/
+    //Save Answer
+    this.saveAnswer=function(data){
+        return $http({
+            method:'POST',
+            url:'/test/saveanswer',
+            data:data
+        })
+    }
+    //Save Test
+    this.saveTest=function(data){
+        return $http({
+            method:'POST',
+            url:'/test/savetest',
+            data:data
+        })
+    }
 })
