@@ -1,8 +1,49 @@
-<h2 class="text-center">Your Dashboard</h2>
-
+<h2>My Statistics</h2>
+<h4>Average(by rounding off): {{userDashPage.statsData.average | number:0}}</h4>
+<br>
 <div class="container">
+    <!-- Graph View -->
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-5">
+            <canvas id="pie" class="chart chart-pie" chart-colors="userDashPage.colors" chart-data="userDashPage.chartData" chart-labels="userDashPage.chartLabels"
+                legend="true">
+            </canvas>
+        </div>
+        <div class="col-md-2">
+            
+        </div>
+        <div class="col-md-5">
+
+            <div class="row">
+                <div class="well primary-bg">
+                    <h4 class="dash-text">
+                        <span class="label label-danger pull-right">{{userDashPage.statsData.totalTest}}</span> Total Test</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="well secondary-bg">
+                    <h4 class="dash-text">
+                        <span class="label label-primary pull-right">{{userDashPage.statsData.correct}}</span>Total Correct
+                        Answer</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="well third-bg">
+                    <h4 class="dash-text">
+                        <span class="label label-info pull-right">{{userDashPage.statsData.wrong}}</span> Total Wrong Answer</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="well fourth-bg">
+                    <h4 class="dash-text">
+                        <span class="label label-success pull-right">{{userDashPage.statsData.score}}</span>Total Score</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Ends Here -->
+    <div class="row">
+        <div class="col-md-12">
             <h3>List of tests available</h3>
             <p>Please select from the list below</p>
             <table class="table table-bordered">
@@ -22,34 +63,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="col-md-6">
-            <h3>My Stats.</h3>
-            <h4>Average(by rounding off): {{userDashPage.statsData.average | number:0}}</h4>
-            <div class="row">
-                <div class="well primary-bg">
-            <h4 class="dash-text">
-              <span class="label label-danger pull-right">{{userDashPage.statsData.totalTest}}</span> Total Test</h4>
-                </div>
-            </div>
-            <div class="row">
-                <div class="well secondary-bg">
-            <h4 class="dash-text">
-              <span class="label label-primary pull-right">{{userDashPage.statsData.correct}}</span>Total Correct Answer</h4>
-                </div>
-            </div>
-            <div class="row">
-                <div class="well third-bg">
-            <h4 class="dash-text">
-              <span class="label label-info pull-right">{{userDashPage.statsData.wrong}}</span> Total Wrong Answer</h4>
-                </div>
-            </div>
-            <div class="row">
-                <div class="well fourth-bg">
-            <h4 class="dash-text">
-              <span class="label label-success pull-right">{{userDashPage.statsData.score}}</span>Total Score</h4>
-                </div>
-            </div>
-        </div>
+        
     </div>
     <div class="row">
         <div class="col-md-12">
@@ -71,7 +85,7 @@
                         <td><a ng-href="#/take-test/{{tests._id}}">{{tests.takenAt | date:"MM/dd/yyyy 'at' h:mma"}}</a></td>
                         <td><a ng-href="#/take-test/{{tests._id}}">{{tests.timeTaken|toMinSec}}</a></td>
                         <td><a ng-href="#/take-test/{{tests._id}}">{{tests.testScore}}</a></td>
-                       <!-- <td><a ng-href="#/take-test/{{tests._id}}">Take Test</td>-->
+                        <!-- <td><a ng-href="#/take-test/{{tests._id}}">Take Test</td>-->
                     </tr>
                 </tbody>
             </table>
