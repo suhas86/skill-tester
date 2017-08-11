@@ -7,6 +7,7 @@ var questionModel = mongoose.model('Question');
 var answerModel = mongoose.model('Answers');
 var resultModel = mongoose.model('Results');
 
+
 var responseGenerator = require('./../../libs/responseGenerator');
 var config = require('./../../config/config');
 var jwt = require('jwt-simple');
@@ -248,6 +249,29 @@ module.exports.controller = function (app) {
         })
     })
     //Delete question
+
+    //Get Test based on User Id
+    testRouter.get('/userresult/:id', function (req, res) {
+        var id = req.params.id;
+        var query = {};
+        if (id == 1) {
+            query = {}
+        } else {
+            query={userId:id}
+        }
+
+        resultModel.find(query, function (err, response) {
+            if (err) {
+                var myResponse = responseGenerator.generate(true,
+                    "Oops some went wrong " + err, 500, null);
+                res.send(myResponse);
+            } else {
+                var myResponse = responseGenerator.generate(false, "",
+                    200, response);
+                res.send(myResponse);
+            }
+        })
+    });
 
     /****** User Test APIS **************************/
 

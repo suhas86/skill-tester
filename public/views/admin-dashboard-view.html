@@ -46,4 +46,33 @@
         </div>
     </div>
 
+    <div class="row">
+        <div class="col-md-12">
+            <h3>List of users</h3>
+             <button class="btn pull-right" ng-click="adminPage.getAll()">View All User Test Results</button>
+                <br>
+             <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Mobile</th>
+                        <th>Registeration Type</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="user in adminPage.users">
+                        <td>{{user.firstName}} {{user.lastName}}</td>
+                        <td>{{user.email}}</td>
+                        <td>{{user.mobileNumber}}</td>
+                        <td>{{user.provider}}</td>
+                        <td><a  ng-href="#/user-performance/{{user._id}}">View Performance</td>
+                       <!-- <td><a  ng-href="#/admin-test-edit/{{tests._id}}">Edit</td>-->
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 </div>

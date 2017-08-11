@@ -1,0 +1,60 @@
+<h3>User Performance</h3>
+<div class="container">
+    <div class="row">
+        <div class="col-md-2">
+            <div class="well primary-bg">
+                <h4 class="dash-text">
+                    <span class="label label-danger pull-right">{{adminUserPage.statsData.totalTest}}</span> Total Test</h4>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="well secondary-bg">
+                <h4 class="dash-text">
+                    <span class="label label-primary pull-right">{{adminUserPage.statsData.correct}}</span>Correct Answers</h4>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="well third-bg">
+                <h4 class="dash-text">
+                    <span class="label label-info pull-right">{{adminUserPage.statsData.wrong}}</span>Wrong Answers</h4>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="well fourth-bg">
+                <h4 class="dash-text">
+                    <span class="label label-success pull-right">{{adminUserPage.statsData.score}}</span>Total Score</h4>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="well primary-bg">
+                <h4 class="dash-text">
+                    <span class="label label-danger pull-right">{{adminUserPage.statsData.average | number:0}}</span>Average</h4>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Test Name</th>
+                        <th>Date</th>
+                        <th>Correct Answers</th>
+                        <th>Wrong Answers</th>
+                        <th>Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="tests in adminUserPage.data">
+                        <td>{{tests.testName}}</td>
+                        <td>{{tests.takenAt | date:"MM/dd/yyyy 'at' h:mma"}}</td>
+                        <td>{{tests.correctAnswers}}</td>
+                        <td>{{tests.wrongAnswers}}</td>
+                        <td>{{tests.testScore}}</td>
+                        <!-- <td><a ng-href="#/take-test/{{tests._id}}">Take Test</td>-->
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

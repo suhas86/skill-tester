@@ -88,6 +88,20 @@ myApp.service('SkillService', function ($http, authToken) {
             data:data
         })
     }
+    //Get all users
+    this.getUsers=function(){
+        return $http({
+            method:'GET',
+            url:'/users/all'
+        })
+    }
+    //Get user test results
+    this.getUserResults=function(id){
+        return $http({
+            method:'GET',
+            url:'/test/userresult/'+id
+        })
+    }
 /*********** User Test APIS ********************************/
     //Save Answer
     this.saveAnswer=function(data){

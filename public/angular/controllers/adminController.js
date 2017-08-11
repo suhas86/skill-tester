@@ -1,9 +1,10 @@
-myApp.controller('adminController', ['SkillService',
-    function (SkillService) {
+myApp.controller('adminController', ['SkillService','$location',
+    function (SkillService,$location) {
         var main = this;
         main.response = {};
 
         main.list = [];
+        main.users=[];
         //Get list
         this.getTestList = function () {
             SkillService.getAllTest().then((response) => {
@@ -15,6 +16,19 @@ myApp.controller('adminController', ['SkillService',
             }, (err) => {
                 alert("Oops something gone wrong");
             });
+        }
+
+        //Get Users
+        this.getUsers=function(){
+            SkillService.getUsers().then((response)=>{
+                if(response.data.error){
+
+                } else {
+                    main.users=response.data.data;
+                }
+            },(err)=>{
+                alert("Oops something gone wrong");
+            })
         }
 
         //Create Test
@@ -32,7 +46,15 @@ myApp.controller('adminController', ['SkillService',
             });
         }
 
+        //Navigate to get all users
+        this.getAll=function(){
+            $location.path('/user-performance/1')
+        }
+
         //Call List
         this.getTestList();
+
+        //Get List
+        this.getUsers();
     }
 ]);

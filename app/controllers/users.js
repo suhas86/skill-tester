@@ -117,5 +117,25 @@ module.exports.controller = function (app) {
     userRouter.post('/profile', function (req, res) {
         res.send(req.decoded);
     })
+
+
+    /*************** ADMIN APIS ******************************************************************/
+
+    //Get user list
+    userRouter.get('/all', function (req, res) {
+        userModel.find({
+            userType: 2
+        }, function (err, response) {
+            if (err) {
+                var myResponse = responseGenerator.generate(true, "Oops Something Went Wrong " + err,
+                    500, null);
+                res.send(myResponse);
+            } else {
+                var myResponse = responseGenerator.generate(false, "",
+                    200, response);
+                res.send(myResponse);
+            }
+        })
+    })
     app.use('/users', userRouter);
 }

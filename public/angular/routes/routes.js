@@ -46,6 +46,11 @@ myApp.config(['$routeProvider', function ($routeProvider) {
             // what is the alias of that controller.
             controllerAs: 'testPage'
         }).
+        when('/user-performance/:id',{
+            templateUrl:'./views/admin-user-view.html',
+            controller:'adminUserController',
+            controllerAs:'adminUserPage'
+        }).
         otherwise(
         {
             //redirectTo:'/'
