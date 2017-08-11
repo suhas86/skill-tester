@@ -193,4 +193,40 @@ footer a:hover, footer a:focus { border-bottom: 1px dotted #19b9e7; }
 .question-panel{
 	margin-left: 2px;
 }
+.primary-bg
+{
+  background-color:#337AB7;
+}
+.primary-bg:hover
+{
+  background-color: #3A3327;
+}
+ .secondary-bg
+{
+  background-color:#E74C3C;
+}
+.secondary-bg:hover
+{
+  background-color: #3A3327;
+}
+ .third-bg
+{
+  background-color:#F39C12;
+}
+.third-bg:hover
+{
+  background-color: #3A3327;
+}
+ .fourth-bg
+{
+  background-color:#7DCEA0;
+}
+.fourth-bg:hover
+{
+  background-color: #3A3327;
+}
+
+.dash-text{
+  color: #fff;
+}
 

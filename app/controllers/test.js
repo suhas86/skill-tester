@@ -313,5 +313,24 @@ module.exports.controller = function (app) {
         });
     });
 
+    //Get user stats
+    testRouter.get('/stats', function (req, res) {
+        var userId = req.decoded._id;
+        //Get results from result model
+        resultModel.find({
+            userId: userId
+        }, function (err, response) {
+            if (err) {
+                var myResponse = responseGenerator.generate(true,
+                    "Oops some went wrong " + err, 500, null);
+                res.send(myResponse);
+            } else {
+                var myResponse = responseGenerator.generate(false, "",
+                    200, response);
+                res.send(myResponse);
+            }
+        })
+    })
+
     app.use('/test', testRouter);
 }

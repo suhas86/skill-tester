@@ -105,4 +105,11 @@ myApp.service('SkillService', function ($http, authToken) {
             data:data
         })
     }
+    //Get Stats
+    this.getStats=function(){
+        return $http({
+            method:'GET',
+            url:'/test/stats'
+        })
+    }
 })

@@ -61,13 +61,20 @@ myApp.controller('testController', ['SkillService', '$routeParams',
                 //Submit Test Logic comes here
                 //Construct data
                 var correctAnswer=(main.score/10);
-                var wrongAnswer=main.questions.length-correctAnswer;
+                var wrongAnswer=0;
+                if(correctAnswer==main.questions.length){
+                    wrongAnswer=0;
+                } else {
+                    wrongAnswer=main.questions.length-correctAnswer;
+                }
+                 
                 console.log("Submit test")
                 var data={
                     testIds: main.id,
                     testScore:main.score,
                     correctAnswers:correctAnswer,
-                    wrongAnswers:wrongAnswer
+                    wrongAnswers:wrongAnswer,
+                    testName:main.testData.name
                 }
 
                 //Make service call

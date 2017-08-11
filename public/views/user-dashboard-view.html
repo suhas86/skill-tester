@@ -17,13 +17,65 @@
                     <tr ng-repeat="tests in userDashPage.list">
                         <td>{{tests.name}}</td>
                         <td>{{tests.category}}</td>
-                        <td><a  ng-href="#/take-test/{{tests._id}}">Take Test</td>
+                        <td><a ng-href="#/take-test/{{tests._id}}">Take Test</td>
                     </tr>
                 </tbody>
             </table>
         </div>
         <div class="col-md-6">
-            Dashboard will come here
+            <h3>My Stats.</h3>
+            <h4>Average(by rounding off): {{userDashPage.statsData.average | number:0}}</h4>
+            <div class="row">
+                <div class="well primary-bg">
+            <h4 class="dash-text">
+              <span class="label label-danger pull-right">{{userDashPage.statsData.totalTest}}</span> Total Test</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="well secondary-bg">
+            <h4 class="dash-text">
+              <span class="label label-primary pull-right">{{userDashPage.statsData.correct}}</span>Total Correct Answer</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="well third-bg">
+            <h4 class="dash-text">
+              <span class="label label-info pull-right">{{userDashPage.statsData.wrong}}</span> Total Wrong Answer</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="well fourth-bg">
+            <h4 class="dash-text">
+              <span class="label label-success pull-right">{{userDashPage.statsData.score}}</span>Total Score</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+             <h3>Tests taken</h3>
+            <p>Click on the test to find details</p>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Test Name</th>
+                        <th>Date</th>
+                        <th>Correct Answers</th>
+                        <th>Wrong Answers</th>
+                        <th>Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="tests in userDashPage.data">
+                        <td><a ng-href="#/take-test/{{tests._id}}">{{tests.testName}}</a></td>
+                        <td><a ng-href="#/take-test/{{tests._id}}">{{tests.takenAt | date:"MM/dd/yyyy 'at' h:mma"}}</a></td>
+                        <td><a ng-href="#/take-test/{{tests._id}}">{{tests.correctAnswers}}</a></td>
+                        <td><a ng-href="#/take-test/{{tests._id}}">{{tests.wrongAnswers}}</a></td>
+                        <td><a ng-href="#/take-test/{{tests._id}}">{{tests.testScore}}</a></td>
+                       <!-- <td><a ng-href="#/take-test/{{tests._id}}">Take Test</td>-->
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
