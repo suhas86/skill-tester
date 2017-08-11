@@ -3,10 +3,15 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-5">
+
             <div class="question-panel">
                 <h3>Question: {{testPage.questions[testPage.questionIndex].question}}</h3>
+                <h4 >
+                    <span class="label label-danger pull-right">Counter:  &nbsp&nbsp{{testPage.counter | toMinSec}}</span>
+                </h4>
                 <p>Options</p>
+
                 <ul class="list-group">
                     <li class="list-group-item">
                         <input type="radio" ng-value="testPage.questions[testPage.questionIndex].option1" name="option" ng-model="testPage.test"
@@ -31,9 +36,9 @@
             <a class="btn btn-link-1 btn-link-1-twitter" ng-show="!testPage.showNext" ng-href="#/user-dashboard">
 		     Back to Dashboard
 		    </a>
-            
+
         </div>
-        <div class="col-md-9">
+        <div class="col-md-7">
             <br>
             <div class="alert alert-success" ng-show="!testPage.showNext">
                 <h1>Congratulations!</h1>
@@ -42,6 +47,7 @@
                 <p>Total Questions:{{testPage.questions.length}} </p>
                 <p>Correct Answers: {{testPage.testResult.correctAnswers}}</p>
                 <p>Wrong Answers: {{testPage.testResult.wrongAnswers}}</p>
+                <p>Time taken: {{testPage.testResult.timeTaken |toMinSec}}</p>
                 <h3>Total Score: {{testPage.testResult.testScore}}</h3>
             </div>
         </div>

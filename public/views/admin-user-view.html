@@ -41,6 +41,7 @@
                         <th>Date</th>
                         <th>Correct Answers</th>
                         <th>Wrong Answers</th>
+                        <th>Time Taken</th>
                         <th>Score</th>
                     </tr>
                 </thead>
@@ -50,6 +51,7 @@
                         <td>{{tests.takenAt | date:"MM/dd/yyyy 'at' h:mma"}}</td>
                         <td>{{tests.correctAnswers}}</td>
                         <td>{{tests.wrongAnswers}}</td>
+                        <td>{{tests.timeTaken|toMinSec}}</td>
                         <td>{{tests.testScore}}</td>
                         <!-- <td><a ng-href="#/take-test/{{tests._id}}">Take Test</td>-->
                     </tr>

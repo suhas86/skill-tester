@@ -60,8 +60,8 @@
                     <tr>
                         <th>Test Name</th>
                         <th>Date</th>
-                        <th>Correct Answers</th>
-                        <th>Wrong Answers</th>
+                        <th>Time Taken</th>
+                        
                         <th>Score</th>
                     </tr>
                 </thead>
@@ -69,8 +69,7 @@
                     <tr ng-repeat="tests in userDashPage.data">
                         <td><a ng-href="#/take-test/{{tests._id}}">{{tests.testName}}</a></td>
                         <td><a ng-href="#/take-test/{{tests._id}}">{{tests.takenAt | date:"MM/dd/yyyy 'at' h:mma"}}</a></td>
-                        <td><a ng-href="#/take-test/{{tests._id}}">{{tests.correctAnswers}}</a></td>
-                        <td><a ng-href="#/take-test/{{tests._id}}">{{tests.wrongAnswers}}</a></td>
+                        <td><a ng-href="#/take-test/{{tests._id}}">{{tests.timeTaken|toMinSec}}</a></td>
                         <td><a ng-href="#/take-test/{{tests._id}}">{{tests.testScore}}</a></td>
                        <!-- <td><a ng-href="#/take-test/{{tests._id}}">Take Test</td>-->
                     </tr>
