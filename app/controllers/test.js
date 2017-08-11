@@ -286,11 +286,31 @@ module.exports.controller = function (app) {
                     "Oops some went wrong " + err, 500, null);
                 res.send(myResponse);
             } else {
-                var myResponse = responseGenerator.generate(false, "",
-                    200, response);
-                res.send(myResponse);
+                //update test attempted
+                console.log(req.body.testIds);
+                testModel.findByIdAndUpdate({
+                    _id: test.testIds
+                }, {
+                    $push: {
+                        testAtemptedBy: test.userId
+                    }
+                }, function (err, testAttempted) {
+                    if (err) {
+                        var myResponse = responseGenerator.generate(true,
+                            "Oops some went wrong " + err, 500, null);
+                        res.send(myResponse);
+                    } else if (testAttempted == null || testAttempted == undefined) {
+                        var myResponse = responseGenerator.generate(true,
+                            "This test doesnt exists", 404, null);
+                        res.send(myResponse);
+                    } else {
+                        var myResponse = responseGenerator.generate(false, "",
+                            200, response);
+                        res.send(myResponse);
+                    }
+                })
             }
-        })
+        });
     });
 
     app.use('/test', testRouter);

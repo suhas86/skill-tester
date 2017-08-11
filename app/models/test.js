@@ -10,7 +10,8 @@ var TestSchema=new Schema({
       description: {type: String},
       duration: {type: Number,default: 20},
       createdBy:{type:String,default:''},
-      questions: []
+      questions: [],
+      testAtemptedBy:[]
 
 })
 
