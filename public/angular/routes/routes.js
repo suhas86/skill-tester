@@ -12,15 +12,15 @@ myApp.config(['$routeProvider', function ($routeProvider) {
             // what is the alias of that controller.
             controllerAs: 'loginPage'
         }).
-         when('/facebook/:token', {
+        when('/facebook/:token', {
             templateUrl: './views/social-view.html',
-            controller:'facebookController',
-            controllerAs:'fbPage'
+            controller: 'facebookController',
+            controllerAs: 'fbPage'
         }).
         when('/google/:token', {
             templateUrl: './views/social-view.html',
-            controller:'facebookController',
-            controllerAs:'fbPage'
+            controller: 'facebookController',
+            controllerAs: 'fbPage'
         }).
         when('/admin-dashboard', {
             templateUrl: './views/admin-dashboard-view.html',
@@ -28,7 +28,7 @@ myApp.config(['$routeProvider', function ($routeProvider) {
             // what is the alias of that controller.
             controllerAs: 'adminPage'
         }).
-         when('/admin-test-edit/:id', {
+        when('/admin-test-edit/:id', {
             templateUrl: './views/admin-test-view.html',
             controller: 'adminTestController',
             // what is the alias of that controller.
@@ -46,15 +46,18 @@ myApp.config(['$routeProvider', function ($routeProvider) {
             // what is the alias of that controller.
             controllerAs: 'testPage'
         }).
-        when('/user-performance/:id',{
-            templateUrl:'./views/admin-user-view.html',
-            controller:'adminUserController',
-            controllerAs:'adminUserPage'
+        when('/user-performance/:id', {
+            templateUrl: './views/admin-user-view.html',
+            controller: 'adminUserController',
+            controllerAs: 'adminUserPage'
         }).
-        when('/user-result/:id',{
-            templateUrl:'./views/user-result-view.html',
-            controller:'userResultController',
-            controllerAs:'userResultPage'
+        when('/user-result/:id', {
+            templateUrl: './views/user-result-view.html',
+            controller: 'userResultController',
+            controllerAs: 'userResultPage'
+        }).
+        when('/logout', {
+            templateUrl: './views/logout-view.html'
         }).
         otherwise(
         {

@@ -2,6 +2,6 @@ myApp.controller('facebookController', ['SkillService', '$location','$rootScope'
 function (SkillService,$location,$rootScope,$routeParams) {
 
     SkillService.facebook($routeParams.token);
-    $location.path('/');
+    $location.path('/user-dashboard');
 
 }]);

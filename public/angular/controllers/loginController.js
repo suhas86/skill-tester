@@ -1,5 +1,5 @@
-myApp.controller('loginController', ['SkillService', '$location', '$rootScope', '$window',
-    function (SkillService, $location, $rootScope, $window) {
+myApp.controller('loginController', ['SkillService', '$location', '$rootScope', '$window', '$timeout',
+    function (SkillService, $location, $rootScope, $window, $timeout) {
         var main = this;
         this.response = {};
         main.loadme = false;
@@ -29,14 +29,14 @@ myApp.controller('loginController', ['SkillService', '$location', '$rootScope', 
             SkillService.signUp(data).then((response) => {
                 console.log(response);
                 main.response = response.data;
-                if(response.data.error){
+                if (response.data.error) {
 
                 } else {
                     SkillService.setToken(main.response.token);
                     main.regData = "";
                     $location.path('/user-dashboard');
                 }
-                
+
 
             }, (err) => {
                 main.response = response.data;
@@ -77,6 +77,9 @@ myApp.controller('loginController', ['SkillService', '$location', '$rootScope', 
         //Logout
         this.logout = function () {
             SkillService.setToken();
-            $location.path('/');
+            $location.path('/logout');
+            $timeout(function () {
+                $location.path('/log-in');
+            }, 2000);
         }
     }]);
