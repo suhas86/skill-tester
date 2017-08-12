@@ -22,6 +22,11 @@ myApp.config(['$routeProvider', function ($routeProvider) {
             controller: 'facebookController',
             controllerAs: 'fbPage'
         }).
+        when('/twitter/:token', {
+            templateUrl: './views/social-view.html',
+            controller: 'facebookController',
+            controllerAs: 'fbPage'
+        }).
         when('/admin-dashboard', {
             templateUrl: './views/admin-dashboard-view.html',
             controller: 'adminController',

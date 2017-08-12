@@ -73,6 +73,10 @@ myApp.controller('loginController', ['SkillService', '$location', '$rootScope', 
         this.google = function () {
             $window.location = $window.location.protocol + '//' + $window.location.host + '/auth/google'
         }
+        //Twitter
+        this.twitter = function () {
+            $window.location = $window.location.protocol + '//' + $window.location.host + '/auth/twitter'
+        }
 
         //Logout
         this.logout = function () {

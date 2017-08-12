@@ -4,6 +4,7 @@ var session = require('express-session');
 var config = require('../config/config');
 var jwt = require('jwt-simple');
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+var TwitterStrategy = require('passport-twitter').Strategy;
 
 module.exports = function (app, passport) {
 
@@ -79,12 +80,12 @@ module.exports = function (app, passport) {
     // Google Strategy  
     passport.use(new GoogleStrategy({
         clientID: '996994656492-o121j79gk0g2vjhe52g6fqmel80l6tii.apps.googleusercontent.com',
-        clientSecret: 'Dcvbt0m48RbqVxMBi7T9uHjB', 
-        callbackURL: "http://localhost:3000/auth/google/callback" 
+        clientSecret: 'Dcvbt0m48RbqVxMBi7T9uHjB',
+        callbackURL: "http://localhost:3000/auth/google/callback"
     },
         function (accessToken, refreshToken, profile, done) {
             User.findOne({
-                email:  profile.emails[0].value 
+                email: profile.emails[0].value
             }, function (err, user) {
                 if (err) {
                     done(err);
@@ -108,10 +109,53 @@ module.exports = function (app, passport) {
         }
     ));
 
+    // Twitter Strategy
+    passport.use(new TwitterStrategy({
+        consumerKey: 'oM0slbzGgEyBuBSdaDKpDxdb5', // Replace with your Twitter Developer App consumer key
+        consumerSecret: 'QSr2LMIet8yh3j75Ho0hG81ZCH7Jul4cjYn7c6lhSxwMSF4Hke', // Replace with your Twitter Developer App consumer secret
+        callbackURL: "http://localhost:3000/auth/twitter/callback", // Replace with your Twitter Developer App callback URL
+        userProfileURL: "https://api.twitter.com/1.1/account/verify_credentials.json?include_email=true"
+    },
+        function (token, tokenSecret, profile, done) {
+            if (profile.emails) {
+
+                User.findOne({
+                    email: profile.emails[0].value
+                }, function (err, user) {
+                    if (err) {
+                        done(err);
+                    }
+                    if (!user) {
+                        user = new User({
+                            email: profile.emails[0].value,
+                            provider: 'Twitter',
+                        });
+                        user.save(function (err) {
+                            if (err) console.log(err);
+                            return done(err, user);
+                        });
+                    } else {
+                        done(null, user);
+                    }
+
+                });
+                console.log("Profile ", profile._json.email);
+                //   done(null, profile);
+
+            }
+        }
+    ));
+
     // Google Routes    
     app.get('/auth/google', passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login', 'profile', 'email'] }));
     app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/googleerror' }), function (req, res) {
         res.redirect('/#/google/' + token); // Redirect user with newly assigned token
+    });
+
+    // Twitter Routes
+    app.get('/auth/twitter', passport.authenticate('twitter'));
+    app.get('/auth/twitter/callback', passport.authenticate('twitter', { failureRedirect: '/twittererror' }), function (req, res) {
+        res.redirect('/#/twitter/' + token); // Redirect user with newly assigned token
     });
 
     return passport;
