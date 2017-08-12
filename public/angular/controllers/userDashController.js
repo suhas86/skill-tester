@@ -1,15 +1,16 @@
-myApp.controller('userDashController', ['SkillService', function (SkillService) {
+myApp.controller('userDashController', ['SkillService','$location',
+ function (SkillService,$location) {
     var main = this;
     main.list = [];
     //Stats data
     main.statsData = {};
     main.data = [];
 
-    
-    main.chartLabels = ["Total Tests","Total Correct Answers","Total Wrong Answers","Total Score"];
+
+    main.chartLabels = ["Total Tests", "Total Correct Answers", "Total Wrong Answers", "Total Score"];
     main.chartData = [];
-    main.colors = ["#337AB7","#E74C3C","#F39C12","#7DCEA0"]
- 
+    main.colors = ["#337AB7", "#E74C3C", "#F39C12", "#7DCEA0"]
+    main.selectedTest='';
 
     //Get list
     this.getTestList = function () {
@@ -40,7 +41,7 @@ myApp.controller('userDashController', ['SkillService', function (SkillService) 
             }
             main.statsData.average = 0;
             main.statsData.average = ((main.statsData.score) / main.data.length);
-            main.chartData=[main.statsData.totalTest,main.statsData.correct,main.statsData.wrong,main.statsData.score]
+            main.chartData = [main.statsData.totalTest, main.statsData.correct, main.statsData.wrong, main.statsData.score]
         }, (err) => {
             alert("Oops something gone wrong");
         })
@@ -50,4 +51,15 @@ myApp.controller('userDashController', ['SkillService', function (SkillService) 
     this.getTestList();
     //getStats
     this.getStats();
+
+    //Temp Code
+    main.modalShown = false;
+    this.toggleModal = function (id) {
+        main.selectedTest=id;
+        main.modalShown = !main.modalShown;
+    };
+    this.takeTest=function(){
+        $location.path('/take-test/'+main.selectedTest);
+    }
+    //Ends Here
 }])

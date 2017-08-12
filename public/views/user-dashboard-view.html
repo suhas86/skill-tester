@@ -10,7 +10,7 @@
             </canvas>
         </div>
         <div class="col-md-2">
-            
+
         </div>
         <div class="col-md-5">
 
@@ -24,7 +24,8 @@
                 <div class="well secondary-bg">
                     <h4 class="dash-text">
                         <span class="label label-primary pull-right">{{userDashPage.statsData.correct}}</span>Total Correct
-                        Answer</h4>
+                        Answer
+                    </h4>
                 </div>
             </div>
             <div class="row">
@@ -43,6 +44,7 @@
     </div>
     <!-- Ends Here -->
     <div class="row">
+        
         <div class="col-md-12">
             <h3>List of tests available</h3>
             <p>Please select from the list below</p>
@@ -58,7 +60,8 @@
                     <tr ng-repeat="tests in userDashPage.list">
                         <td>{{tests.name}}</td>
                         <td>{{tests.category}}</td>
-                        <td><a ng-href="#/take-test/{{tests._id}}">Take Test</td>
+                      <!--  <td><a ng-href="#/take-test/{{tests._id}}">Take Test</td> -->
+                        <td><a ng-click='userDashPage.toggleModal(tests._id)'>Take Test</td>
                     </tr>
                 </tbody>
             </table>
@@ -92,3 +95,19 @@
         </div>
     </div>
 </div>
+
+<modal-dialog show='userDashPage.modalShown' width='750px' height='auto'>
+    <h3>Please accept rules before taking test</h3>
+    <ol>
+        <li>
+            Each question will have four options. you can select only one option.
+        </li>
+        <li>You will get 20 minutes to complete the test.Your test will be automatically submitted
+            once it reaches given time.
+        </li>
+        <li>You cannot alter your answers once you click on next button.</li>
+        <li>On completion of test. Please submit and wait for us to display detailed report.</li>
+    </ol>
+    <button type="button" class="btn pull-right" ng-click="userDashPage.takeTest()">I Accept</button>
+    <br>
+</modal-dialog>
