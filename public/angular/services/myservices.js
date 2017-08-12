@@ -15,8 +15,8 @@ myApp.service('SkillService', function ($http, authToken) {
             url: '/users/login'
         })
     }
-    this.setToken=function(token){
-       return authToken.setToken(token);
+    this.setToken = function (token) {
+        return authToken.setToken(token);
     }
     //Is logged in
     this.isLoggedIn = function () {
@@ -27,103 +27,110 @@ myApp.service('SkillService', function ($http, authToken) {
         }
     }
     //Set Token from facebook
-    this.facebook=function(token){
+    this.facebook = function (token) {
         authToken.setToken(token);
     }
-    this.getUser=function(){
-        if(authToken.getToken()){
+    this.getUser = function () {
+        if (authToken.getToken()) {
             return $http({
                 method: "POST",
                 url: '/users/profile'
             })
         } else {
-            $q.reject({message:'User has no token'})
+            $q.reject({ message: 'User has no token' })
         }
     }
 
     /**********Admin Apis ***********************/
     //Create test
-    this.createTest=function(data){
+    this.createTest = function (data) {
         return $http({
-            method:"POST",
-            url:'/test/admin/create',
-            data:data
+            method: "POST",
+            url: '/test/admin/create',
+            data: data
         })
     }
     //Get Test
-    this.getAllTest=function(){
+    this.getAllTest = function () {
         return $http({
-            method:"GET",
-            url:'/test/admin/all'
+            method: "GET",
+            url: '/test/admin/all'
         })
     }
     //Get test by id
-    this.getTestById=function(id){
+    this.getTestById = function (id) {
         return $http({
-            method:"GET",
-            url:'/test/single/'+id
+            method: "GET",
+            url: '/test/single/' + id
         })
     }
     //Update test
-    this.updateTest=function(data,id){
+    this.updateTest = function (data, id) {
         return $http({
-            method:"PUT",
-            url:'/test/admin/update/'+id,
-            data:data
+            method: "PUT",
+            url: '/test/admin/update/' + id,
+            data: data
         })
     }
     //Create question
-    this.createQuestion=function(data){
+    this.createQuestion = function (data) {
         return $http({
-            method:'POST',
-            url:'/test/createquestion',
-            data:data
+            method: 'POST',
+            url: '/test/createquestion',
+            data: data
         })
     },
-    //Update question
-    this.updateQuestion=function(data,id){
-        return $http({
-            method:'PUT',
-            url:'/test/updatequestion/'+id,
-            data:data
-        })
-    }
+        //Update question
+        this.updateQuestion = function (data, id) {
+            return $http({
+                method: 'PUT',
+                url: '/test/updatequestion/' + id,
+                data: data
+            })
+        }
     //Get all users
-    this.getUsers=function(){
+    this.getUsers = function () {
         return $http({
-            method:'GET',
-            url:'/users/all'
+            method: 'GET',
+            url: '/users/all'
         })
     }
     //Get user test results
-    this.getUserResults=function(id){
+    this.getUserResults = function (id) {
         return $http({
-            method:'GET',
-            url:'/test/userresult/'+id
+            method: 'GET',
+            url: '/test/userresult/' + id
         })
     }
-/*********** User Test APIS ********************************/
+    /*********** User Test APIS ********************************/
     //Save Answer
-    this.saveAnswer=function(data){
+    this.saveAnswer = function (data) {
         return $http({
-            method:'POST',
-            url:'/test/saveanswer',
-            data:data
+            method: 'POST',
+            url: '/test/saveanswer',
+            data: data
         })
     }
     //Save Test
-    this.saveTest=function(data){
+    this.saveTest = function (data) {
         return $http({
-            method:'POST',
-            url:'/test/savetest',
-            data:data
+            method: 'POST',
+            url: '/test/savetest',
+            data: data
         })
     }
     //Get Stats
-    this.getStats=function(){
+    this.getStats = function () {
         return $http({
-            method:'GET',
-            url:'/test/stats'
+            method: 'GET',
+            url: '/test/stats'
+        })
+    }
+    //Get Result based on Result Id
+    this.getUserResult = function (id) {
+        return $http({
+            method: 'GET',
+            url: '/test/single/result/' + id
         })
     }
 })

@@ -1,0 +1,27 @@
+
+<div class="container">
+    <div class="row">
+       <div class="col-lg-4"><h3>Test Name</h3></div>
+       <div class="col-lg-4"><h3>{{userResultPage.result.testName}}</h3></div>
+    </div>
+    <div class="row">
+       <div class="col-lg-4"><b>Test was taken at</b></div>
+       <div class="col-lg-4"><p>{{userResultPage.result.takenAt| date:"MM/dd/yyyy 'at' h:mma"}}</p> </div>
+    </div>
+    <div class="row">
+       <div class="col-lg-4"><b>Correct Answers</b></div>
+       <div class="col-lg-4"><p>{{userResultPage.result.correctAnswers}}</p> </div>
+    </div>
+    <div class="row">
+       <div class="col-lg-4"><b>Wrong Answers</b></div>
+       <div class="col-lg-4"><p>{{userResultPage.result.wrongAnswers}}</p> </div>
+    </div>
+    <div class="row">
+       <div class="col-lg-4"><b>Time Taken</b></div>
+       <div class="col-lg-4"><p>{{userResultPage.result.timeTaken|toMinSec}}</p> </div>
+    </div>
+    <div class="row">
+       <div class="col-lg-4"><b>Total Score</b></div>
+       <div class="col-lg-4"><p>{{userResultPage.result.testScore}}</p> </div>
+    </div>
+</div>

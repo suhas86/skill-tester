@@ -108,18 +108,18 @@ module.exports.controller = function (app) {
         testModel.findByIdAndUpdate({
             _id: req.params.id
         }, req.body, {
-            new: true
-        }, function (err, response) {
-            if (err) {
-                var myResponse = responseGenerator.generate(true,
-                    "Oops some went wrong " + err, 500, null);
-                res.send(myResponse);
-            } else {
-                var myResponse = responseGenerator.generate(false, "",
-                    200, response);
-                res.send(myResponse);
-            }
-        })
+                new: true
+            }, function (err, response) {
+                if (err) {
+                    var myResponse = responseGenerator.generate(true,
+                        "Oops some went wrong " + err, 500, null);
+                    res.send(myResponse);
+                } else {
+                    var myResponse = responseGenerator.generate(false, "",
+                        200, response);
+                    res.send(myResponse);
+                }
+            })
     });
 
     //Delete Test
@@ -205,48 +205,48 @@ module.exports.controller = function (app) {
         questionModel.findByIdAndUpdate({
             _id: req.body._id
         }, req.body, {
-            new: true
-        }, function (err, question) {
-            if (err) {
-                var myResponse = responseGenerator.generate(true,
-                    "Oops some went wrong " + err, 500, null);
-                res.send(myResponse);
-            } else {
-                //On updating question model update test model
-                testModel.findById({
-                    _id: req.params.test_id
-                }, function (err, test) {
-                    if (err) {
-                        var myResponse = responseGenerator.generate(true,
-                            "Oops some went wrong " + err, 500, null);
-                        res.send(myResponse);
-                    } else {
+                new: true
+            }, function (err, question) {
+                if (err) {
+                    var myResponse = responseGenerator.generate(true,
+                        "Oops some went wrong " + err, 500, null);
+                    res.send(myResponse);
+                } else {
+                    //On updating question model update test model
+                    testModel.findById({
+                        _id: req.params.test_id
+                    }, function (err, test) {
+                        if (err) {
+                            var myResponse = responseGenerator.generate(true,
+                                "Oops some went wrong " + err, 500, null);
+                            res.send(myResponse);
+                        } else {
 
-                        console.log("Question ID", question._id)
-                        var index = _.findIndex(test.questions, {
-                            _id: question._id
-                        });
-                        //  var index = _.findIndex(test.questions, function(obj){ return _.has(obj, question._id)});
-                        console.log("Index ", index);
-                        test.questions.splice(index, 1);
+                            console.log("Question ID", question._id)
+                            var index = _.findIndex(test.questions, {
+                                _id: question._id
+                            });
+                            //  var index = _.findIndex(test.questions, function(obj){ return _.has(obj, question._id)});
+                            console.log("Index ", index);
+                            test.questions.splice(index, 1);
 
-                        var temp = new questionModel(req.body);
-                        test.questions.push(temp);
-                        test.save(function (err, response) {
-                            if (err) {
-                                var myResponse = responseGenerator.generate(true,
-                                    "Oops some went wrong " + err, 500, null);
-                                res.send(myResponse);
-                            } else {
-                                var myResponse = responseGenerator.generate(false, "",
-                                    200, response);
-                                res.send(myResponse);
-                            }
-                        })
-                    }
-                })
-            }
-        })
+                            var temp = new questionModel(req.body);
+                            test.questions.push(temp);
+                            test.save(function (err, response) {
+                                if (err) {
+                                    var myResponse = responseGenerator.generate(true,
+                                        "Oops some went wrong " + err, 500, null);
+                                    res.send(myResponse);
+                                } else {
+                                    var myResponse = responseGenerator.generate(false, "",
+                                        200, response);
+                                    res.send(myResponse);
+                                }
+                            })
+                        }
+                    })
+                }
+            })
     })
     //Delete question
 
@@ -257,7 +257,7 @@ module.exports.controller = function (app) {
         if (id == 1) {
             query = {}
         } else {
-            query={userId:id}
+            query = { userId: id }
         }
 
         resultModel.find(query, function (err, response) {
@@ -315,24 +315,24 @@ module.exports.controller = function (app) {
                 testModel.findByIdAndUpdate({
                     _id: test.testIds
                 }, {
-                    $push: {
-                        testAtemptedBy: test.userId
-                    }
-                }, function (err, testAttempted) {
-                    if (err) {
-                        var myResponse = responseGenerator.generate(true,
-                            "Oops some went wrong " + err, 500, null);
-                        res.send(myResponse);
-                    } else if (testAttempted == null || testAttempted == undefined) {
-                        var myResponse = responseGenerator.generate(true,
-                            "This test doesnt exists", 404, null);
-                        res.send(myResponse);
-                    } else {
-                        var myResponse = responseGenerator.generate(false, "",
-                            200, response);
-                        res.send(myResponse);
-                    }
-                })
+                        $push: {
+                            testAtemptedBy: test.userId
+                        }
+                    }, function (err, testAttempted) {
+                        if (err) {
+                            var myResponse = responseGenerator.generate(true,
+                                "Oops some went wrong " + err, 500, null);
+                            res.send(myResponse);
+                        } else if (testAttempted == null || testAttempted == undefined) {
+                            var myResponse = responseGenerator.generate(true,
+                                "This test doesnt exists", 404, null);
+                            res.send(myResponse);
+                        } else {
+                            var myResponse = responseGenerator.generate(false, "",
+                                200, response);
+                            res.send(myResponse);
+                        }
+                    })
             }
         });
     });
@@ -354,6 +354,24 @@ module.exports.controller = function (app) {
                 res.send(myResponse);
             }
         })
+    });
+
+    //Get single test result based on user and Result id
+    testRouter.get('/single/result/:id', function (req, res) {
+        var userId = req.decoded._id;
+        var resultId = req.params.id;
+
+        resultModel.findOne({ $and: [{ _id: resultId }, { userId: userId }] }, function (err, response) {
+            if (err) {
+                var myResponse = responseGenerator.generate(true,
+                    "Oops some went wrong " + err, 500, null);
+                res.send(myResponse);
+            } else {
+                var myResponse = responseGenerator.generate(false, "",
+                    200, response);
+                res.send(myResponse);
+            }
+        });
     })
 
     app.use('/test', testRouter);

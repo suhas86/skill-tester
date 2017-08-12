@@ -51,6 +51,11 @@ myApp.config(['$routeProvider', function ($routeProvider) {
             controller:'adminUserController',
             controllerAs:'adminUserPage'
         }).
+        when('/user-result/:id',{
+            templateUrl:'./views/user-result-view.html',
+            controller:'userResultController',
+            controllerAs:'userResultPage'
+        }).
         otherwise(
         {
             //redirectTo:'/'
