@@ -32,7 +32,7 @@ module.exports.controller = function (app) {
                     var token = jwt.encode(newUser, config.secret);
                     var myResponse = responseGenerator.generate(false, "",
                         200, newUser);
-                    myResponse.token = 'JWT ' + token;
+                    myResponse.token =  token;
                     /*
                     myMailer.sendMail("Welcome",
                         "Welcome to Ticket Support. Please let us know how can we help you",
@@ -72,7 +72,7 @@ module.exports.controller = function (app) {
                             // return the information including token as JSON
                             var myResponse = responseGenerator.generate(false, "",
                                 200, user);
-                            myResponse.token = 'JWT ' + token;
+                            myResponse.token =  token;
                             res.send(myResponse);
                         } else {
                             var myResponse = responseGenerator.generate(true, "Please check your password ",
@@ -95,19 +95,9 @@ module.exports.controller = function (app) {
         var token = req.body.token || req.body.query || req.headers['x-access-token'];
 
         if (token) {
-            console.log(token)
-            var parted = token.split(' ');
-            if (parted.length === 2) {
-                var decoded = jwt.decode(parted[1], config.secret);
-                console.log(decoded)
-                req.decoded = decoded;
-                next();
-            } else {
-                var myResponse = responseGenerator.generate(true,
-                    "Invalid token", 403, null);
-                res.send(myResponse);
-            }
-
+            var decoded = jwt.decode(token, config.secret);
+            req.decoded = decoded;
+            next();
         } else {
             var myResponse = responseGenerator.generate(true,
                 "Token not provided", 403, null);

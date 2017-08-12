@@ -19,17 +19,9 @@ module.exports.controller = function (app) {
         var token = req.body.token || req.body.query || req.headers['x-access-token'];
 
         if (token) {
-            console.log(token)
-            var parted = token.split(' ');
-            if (parted.length === 2) {
-                var decoded = jwt.decode(parted[1], config.secret);
-                req.decoded = decoded;
-                next();
-            } else {
-                var myResponse = responseGenerator.generate(true,
-                    "Invalid token", 403, null);
-                res.send(myResponse);
-            }
+             var decoded = jwt.decode(token, config.secret);
+            req.decoded = decoded;
+            next();
 
         } else {
             var myResponse = responseGenerator.generate(true,

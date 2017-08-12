@@ -35,8 +35,8 @@ myApp.controller('userDashController', ['SkillService', function (SkillService) 
             main.statsData.score = 0;
             for (var i = 0; i < main.data.length; i++) {
                 main.statsData.correct = main.statsData.correct + main.data[i].correctAnswers;
-                main.statsData.wrong = main.statsData.correct + main.data[i].wrongAnswers;
-                main.statsData.score = main.statsData.correct + main.data[i].testScore;
+                main.statsData.wrong = main.statsData.wrong + main.data[i].wrongAnswers;
+                main.statsData.score = main.statsData.score + main.data[i].testScore;
             }
             main.statsData.average = 0;
             main.statsData.average = ((main.statsData.score) / main.data.length);
