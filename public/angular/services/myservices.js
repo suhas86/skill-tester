@@ -62,6 +62,16 @@ myApp.service('SkillService', function ($http, authToken) {
         })
     }
 
+     this.updateProfile=function(id,data){
+        return $http({
+            method:'PUT',
+            url:'/users/update/profile/'+id,
+            data:data
+        })
+    }
+
+   
+
     /**********Admin Apis ***********************/
     //Create test
     this.createTest = function (data) {

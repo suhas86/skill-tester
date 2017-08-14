@@ -6,12 +6,28 @@ myApp.controller('loginController', ['SkillService', '$location', '$rootScope', 
         //Formats required for validation
         this.emailFormat = /^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/;
         this.mobileFormat = /^[0-9]{10,10}$/;
-
+        main.userId = 0;
+        main.name = '';
         //Root Scope to check login and get user
         $rootScope.$on('$routeChangeStart', function () {
             if (SkillService.isLoggedIn()) {
                 main.isLoggedIn = true;
-                main.loadme = true;
+
+                SkillService.getUser().then((response) => {
+                    main.loadme = true;
+                        console.log(response)
+                    if (response.data == null) {
+                        main.logout();
+                    } else {
+                        main.userId = response.data.userType;
+                        if (response.data.firstName == '') {
+                            main.name = "User";
+                        } else {
+                            main.name = response.data.firstName + ' ' + response.data.lastName;
+                        }
+
+                    }
+                })
             } else {
                 main.isLoggedIn = false;
                 main.loadme = true;
@@ -81,9 +97,12 @@ myApp.controller('loginController', ['SkillService', '$location', '$rootScope', 
         //Logout
         this.logout = function () {
             SkillService.setToken();
+            main.userId = 0;
+            main.name = '';
             $location.path('/logout');
             $timeout(function () {
                 $location.path('/log-in');
             }, 2000);
         }
-    }]);
+    }
+]);

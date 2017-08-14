@@ -235,6 +235,23 @@ module.exports.controller = function (app) {
         res.send(req.decoded);
     })
 
+    userRouter.put('/update/profile/:id',function(req,res){
+        userModel.findByIdAndUpdate({_id:req.params.id},req.body, {
+                new: true
+            },function(err,user){
+                if (err) {
+                var myResponse = responseGenerator.generate(true, "Oops Something Went Wrong " + err,
+                    500, null);
+                res.send(myResponse);
+            } else {
+                var token = jwt.encode(user, config.secret);
+                var myResponse = responseGenerator.generate(false, "",
+                    200, user);
+                myResponse.token=token;    
+                res.send(myResponse);
+            }
+            })
+    })
 
     /*************** ADMIN APIS ******************************************************************/
 

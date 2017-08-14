@@ -40,11 +40,24 @@
         <ul class="nav navbar-nav">
           <li><a href="#/">Home</a></li>
         </ul>
+        <ul class="nav navbar-nav ">
+          <li><a ng-show="main.userId==2" href="#/user-dashboard"> Dashboard</a></li>
+        </ul>
+
+        <ul class="nav navbar-nav ">
+          <li><a ng-show="main.userId==1" href="#/admin-dashboard">Admin Dashboard</a></li>
+        </ul>
+
+       
+        
         <ul class="nav navbar-nav navbar-right">
           <li><a ng-show="!main.isLoggedIn" href="#/log-in"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li><a ng-show="main.isLoggedIn" ng-click="main.logout();"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+        </ul>
+         <ul class="nav navbar-nav navbar-right">
+          <li><a ng-show="main.userId==2" href="#/profile">Welcome {{main.name}}</a></li>
         </ul>
       </div>
     </div>
@@ -81,6 +94,7 @@
   <script type="text/javascript" src="angular/controllers/userResultController.js"></script>
   <script type="text/javascript" src="angular/controllers/forgotPasswordController.js"></script>
   <script type="text/javascript" src="angular/controllers/resetController.js"></script>
+  <script type="text/javascript" src="angular/controllers/profileController.js"></script>
   <!--
   <script src="https://static.fusioncharts.com/code/latest/fusioncharts.js"></script>
   <script src="http://fusioncharts.github.io/angular-fusioncharts/demos/js/angular-fusioncharts.min.js"></script>

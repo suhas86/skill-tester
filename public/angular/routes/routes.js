@@ -74,6 +74,11 @@ myApp.config(['$routeProvider', function ($routeProvider) {
             controller:'resetController',
             controllerAs:'resetPage'
         }).
+         when('/profile',{
+            templateUrl:'./views/profile-view.html',
+            controller:'profileController',
+            controllerAs:'profilePage'
+        }).
         otherwise(
         {
             //redirectTo:'/'
