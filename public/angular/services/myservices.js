@@ -15,8 +15,8 @@ myApp.service('SkillService', function ($http, authToken) {
             url: '/users/login'
         })
     }
-    this.setToken = function (token,userType) {
-        return authToken.setToken(token,userType);
+    this.setToken = function (token, userType) {
+        return authToken.setToken(token, userType);
     }
     //Is logged in
     this.isLoggedIn = function () {
@@ -26,9 +26,9 @@ myApp.service('SkillService', function ($http, authToken) {
             return false;
         }
     }
-      this.checkAdmin = function () {
-          console.log(authToken.getUserType())
-        if (authToken.getUserType()=='1'    ) {
+    this.checkAdmin = function () {
+        console.log(authToken.getUserType())
+        if (authToken.getUserType() == '1') {
             return true;
         } else {
             return false;
@@ -48,37 +48,37 @@ myApp.service('SkillService', function ($http, authToken) {
             $q.reject({ message: 'User has no token' })
         }
     }
-    this.forgotPassword=function(data){
+    this.forgotPassword = function (data) {
         return $http({
-            method:'POST',
-            url:'/users/forgot-password',
-            data:data
+            method: 'POST',
+            url: '/users/forgot-password',
+            data: data
         })
     }
-      this.resetPassword=function(data){
+    this.resetPassword = function (data) {
         return $http({
-            method:'POST',
-            url:'/users/reset-password',
-            data:data
-        })
-    }
-
-     this.resetPassToken=function(token){
-        return $http({
-            method:'GET',
-            url:'/users/reset-password/'+token
+            method: 'POST',
+            url: '/users/reset-password',
+            data: data
         })
     }
 
-     this.updateProfile=function(id,data){
+    this.resetPassToken = function (token) {
         return $http({
-            method:'PUT',
-            url:'/users/update/profile/'+id,
-            data:data
+            method: 'GET',
+            url: '/users/reset-password/' + token
         })
     }
 
-   
+    this.updateProfile = function (id, data) {
+        return $http({
+            method: 'PUT',
+            url: '/users/update/profile/' + id,
+            data: data
+        })
+    }
+
+
 
     /**********Admin Apis ***********************/
     //Create test
@@ -112,10 +112,10 @@ myApp.service('SkillService', function ($http, authToken) {
         })
     }
     //Delete Test
-    this.deleteTest=function(id){
+    this.deleteTest = function (id) {
         return $http({
-            method:'GET',
-            url:'/test/delete/'+id
+            method: 'GET',
+            url: '/test/delete/' + id
         })
     }
     //Create question
@@ -125,15 +125,22 @@ myApp.service('SkillService', function ($http, authToken) {
             url: '/test/createquestion',
             data: data
         })
-    },
-        //Update question
-        this.updateQuestion = function (data, id) {
-            return $http({
-                method: 'PUT',
-                url: '/test/updatequestion/' + id,
-                data: data
-            })
-        }
+    }
+    //Update question
+    this.updateQuestion = function (data, id) {
+        return $http({
+            method: 'PUT',
+            url: '/test/updatequestion/' + id,
+            data: data
+        })
+    }
+    //Delete Question
+    this.deleteQuestion = function (testId, questId) {
+        return $http({
+            method: 'GET',
+            url: '/test/deleteQuestion/' + testId + '/' + questId
+        })
+    }
     //Get all users
     this.getUsers = function () {
         return $http({

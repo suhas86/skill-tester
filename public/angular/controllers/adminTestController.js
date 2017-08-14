@@ -60,6 +60,20 @@ myApp.controller('adminTestController', ['SkillService', '$routeParams',
             })
         }
 
+        //Delete question 
+        this.deleteQuestion=function(questId){
+            SkillService.deleteQuestion(main.id,questId).then((response)=>{
+                if(response.data.error){
+                    alert(message);
+                } else {
+                    console.log(response.data);
+                    this.getTestById(main.id)
+                    alert("Deleted successfully")
+                }
+            },(err)=>{
+                alert("Oops something gone wrong");
+            })
+        }
         //Clear the data
         this.clear=function(){
             main.isSave=true;

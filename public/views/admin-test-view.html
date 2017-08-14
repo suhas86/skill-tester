@@ -29,6 +29,7 @@
                         <th>Question</th>
                         <th>Answer</th>
                         <th>Action</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -36,6 +37,7 @@
                         <td>{{question.question}}</td>
                         <td>{{question.answer}}</td>
                         <td><a ng-click="ediTestPage.getQuestion(question)">Edit</a></td>
+                         <td><a ng-click="ediTestPage.deleteQuestion(question._id)">Delete</a></td>
                     </tr>
                 </tbody>
             </table>

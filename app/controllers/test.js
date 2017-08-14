@@ -19,7 +19,7 @@ module.exports.controller = function (app) {
         var token = req.body.token || req.body.query || req.headers['x-access-token'];
 
         if (token) {
-             var decoded = jwt.decode(token, config.secret);
+            var decoded = jwt.decode(token, config.secret);
             req.decoded = decoded;
             next();
 
@@ -242,6 +242,45 @@ module.exports.controller = function (app) {
     })
     //Delete question
 
+    testRouter.get('/deleteQuestion/:test_id/:quest_id', function (req, res) {
+        testModel.findOne({ _id: req.params.test_id }, function (err, test) {
+            if (err) {
+                var myResponse = responseGenerator.generate(true,
+                    "Oops some went wrong " + err, 500, null);
+                res.send(myResponse);
+            } else {
+                if (test.questions.length == 0) {
+                    var myResponse = responseGenerator.generate(true,
+                        "No question associated with this test", 404, null);
+                    res.send(myResponse);
+                } else {
+                    questionModel.findByIdAndRemove(req.params.quest_id, function (err, resp) {
+                        console.log(resp);
+                        console.log(test)
+                        var index = _.findIndex(test.questions, {
+                            _id: resp._id
+                        });
+                        //  var index = _.findIndex(test.questions, function(obj){ return _.has(obj, question._id)});
+                        console.log("Index ", index);
+                        test.questions.splice(index, 1);
+                        test.save(function (err, question) {
+                            if (err) {
+                                var myResponse = responseGenerator.generate(true,
+                                    "Oops some went wrong " + err, 500, null);
+                                res.send(myResponse);
+                            } else {
+                                var myResponse = responseGenerator.generate(false, "Question has been deleted successfully!!!", 200, question);
+                                res.send(myResponse);
+                            }
+                        });
+                    })
+
+                }
+
+            }
+        });
+    })
+
     //Get Test based on User Id
     testRouter.get('/userresult/:id', function (req, res) {
         var id = req.params.id;
@@ -279,7 +318,7 @@ module.exports.controller = function (app) {
             questionId: ans.questionId,
             givenAnswer: ans.givenAnswer,
             correctAnswer: ans.correctAnswer,
-            timeTaken:n,
+            timeTaken: n,
         });
         answer.save(function (err, response) {
             if (err) {
