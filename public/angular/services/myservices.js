@@ -111,6 +111,13 @@ myApp.service('SkillService', function ($http, authToken) {
             data: data
         })
     }
+    //Delete Test
+    this.deleteTest=function(id){
+        return $http({
+            method:'GET',
+            url:'/test/delete/'+id
+        })
+    }
     //Create question
     this.createQuestion = function (data) {
         return $http({

@@ -46,6 +46,20 @@ myApp.controller('adminController', ['SkillService','$location',
             });
         }
 
+        //Delete Test
+        this.deleteTest=function(id){
+            SkillService.deleteTest(id).then((response)=>{
+                if(response.data.error){
+                    alert(message);
+                } else {
+                    alert("Deleted successfully");
+                    main.getTestList();
+                }
+            },(err)=>{
+                alert("Oops something gone wrong");
+            })
+        }
+
         //Navigate to get all users
         this.getAll=function(){
             $location.path('/user-performance/1')
