@@ -272,3 +272,9 @@ footer a:hover, footer a:focus { border-bottom: 1px dotted #19b9e7; }
   font-family: 'arial', 'sans-serif';
 }
 
+.error{
+	color:#CC181E;
+  font: bold;
+  padding: 2px;
+}
+

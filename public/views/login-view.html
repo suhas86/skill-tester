@@ -32,12 +32,14 @@
                                 <div class="form-group">
                                     <label class="sr-only" for="form-username">Email</label>
                                     <input type="text" name="email" ng-model="loginPage.logData.email" placeholder="Email..." class="form-username form-control"
-                                        id="email" required>
+                                        id="email" ng-pattern="loginPage.emailFormat" required>
+                                    <p ng-show="loginForm.email.$invalid && loginForm.email.$touched " class="error">Enter a valid email</p>
                                 </div>
                                 <div class="form-group">
                                     <label class="sr-only" for="form-password">Password</label>
                                     <input type="password" name="password" ng-model="loginPage.logData.password" placeholder="Password..." class="form-password form-control"
                                         id="password" required>
+                                    <p ng-show="loginForm.password.$invalid && loginForm.password.$touched " class="error">Please provide password</p>
                                 </div>
                                 <button type="submit" ng-disabled="loginForm.$invalid" class="btn">Sign in!</button>
                                 <!-- Alert Message -->
@@ -46,9 +48,9 @@
                                     {{loginPage.response.message}}
                                 </div>
                             </form>
-                                <div class="text-center">
-                              <a href="#/forgot-password ">Forgot Password</a>
-                                </div>
+                            <div class="text-center">
+                                <a href="#/forgot-password ">Forgot Password</a>
+                            </div>
                         </div>
 
                     </div>
@@ -89,35 +91,41 @@
                             <form role="form" name="regForm" ng-submit="loginPage.register(loginPage.regData)" class="registration-form">
                                 <div class="form-group">
                                     <label class="sr-only" for="form-first-name">First name</label>
-                                    <input type="text" name="regData.firstName" ng-model="loginPage.regData.firstName" placeholder="First name..." class="form-first-name form-control"
+                                    <input type="text" name="firstName" ng-model="loginPage.regData.firstName" placeholder="First name..." class="form-first-name form-control"
                                         id="firstName" required>
+                                    <p ng-show="regForm.firstName.$invalid && regForm.firstName.$touched " class="error">Please enter First Name</p>
                                 </div>
                                 <div class="form-group">
                                     <label class="sr-only" for="form-last-name">Last name</label>
                                     <input type="text" name="lastName" ng-model="loginPage.regData.lastName" placeholder="Last name..." class="form-last-name form-control"
                                         id="lastName" required>
+                                    <p ng-show="regForm.lastName.$invalid && regForm.lastName.$touched " class="error">Please enter Last Name</p>
                                 </div>
                                 <div class="form-group">
                                     <label class="sr-only" for="form-email">Email</label>
-                                    <input type="text" name="email" placeholder="Email..." class="form-email form-control" id="email" ng-model="loginPage.regData.email"
+                                    <input type="text" name="email" placeholder="Email..." ng-pattern="loginPage.emailFormat" class="form-email form-control" id="email" ng-model="loginPage.regData.email"
                                         required>
+                                   <p ng-show="regForm.email.$invalid && regForm.email.$touched " class="error">Please enter valid email</p>     
                                 </div>
                                 <div class="form-group">
                                     <label class="sr-only" for="form-email">Mobile No:</label>
-                                    <input type="text" name="mobileNumber" placeholder="Mobile..." class="form-email form-control" id="mobileNumber" ng-model="loginPage.regData.mobileNumber"
+                                    <input type="text" name="mobileNumber" placeholder="Mobile..." ng-pattern="loginPage.mobileFormat" class="form-email form-control" id="mobileNumber" ng-model="loginPage.regData.mobileNumber"
                                         required>
+                                     <p ng-show="regForm.mobileNumber.$invalid && regForm.mobileNumber.$touched " class="error">Please enter valid Mobile Number</p>         
                                 </div>
                                 <div class="form-group">
                                     <label class="sr-only" for="form-email">Password:</label>
                                     <input type="password" name="password" placeholder="Password..." class="form-email form-control" id="password" ng-model="loginPage.regData.password"
                                         required>
+                                   <p ng-show="regForm.password.$invalid && regForm.password.$touched " class="error">Please enter password</p>              
                                 </div>
                                 <div class="form-group">
                                     <label class="sr-only" for="form-email">Confirm Password:</label>
-                                    <input type="password" name="confirmPassword" placeholder="Confirm Password..." class="form-email form-control" id="confirmPassword"
+                                    <input type="password" name="confirmPassword" placeholder="Confirm Password..." ng-model="loginPage.regData.confirmPassword" class="form-email form-control" id="confirmPassword"
                                         required>
+                                     <p ng-show=" regForm.confirmPassword.$touched && loginPage.regData.password !== loginPage.regData.confirmPassword" class="error">Password mismatch</p>     
                                 </div>
-                                <button type="submit" class="btn" ng-disabled="regForm.$invalid">Sign me up!</button>
+                                <button type="submit" class="btn" ng-disabled="regForm.$invalid || loginPage.regData.password !== loginPage.regData.confirmPassword">Sign me up!</button>
                                 <!-- Alert Message -->
                                 <br>
                                 <div class="alert alert-danger" ng-if="!regForm.$invalid && loginPage.response.error">
