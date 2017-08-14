@@ -31,35 +31,41 @@ myApp.config(['$routeProvider', function ($routeProvider) {
             templateUrl: './views/admin-dashboard-view.html',
             controller: 'adminController',
             // what is the alias of that controller.
-            controllerAs: 'adminPage'
+            controllerAs: 'adminPage',
+            authenticated: true
         }).
         when('/admin-test-edit/:id', {
             templateUrl: './views/admin-test-view.html',
             controller: 'adminTestController',
             // what is the alias of that controller.
-            controllerAs: 'ediTestPage'
+            controllerAs: 'ediTestPage',
+            authenticated: true
         }).
         when('/user-dashboard', {
             templateUrl: './views/user-dashboard-view.html',
             controller: 'userDashController',
             // what is the alias of that controller.
-            controllerAs: 'userDashPage'
+            controllerAs: 'userDashPage',
+            authenticated: true
         }).
         when('/take-test/:id', {
             templateUrl: './views/test-view.html',
             controller: 'testController',
             // what is the alias of that controller.
-            controllerAs: 'testPage'
+            controllerAs: 'testPage',
+            authenticated: true
         }).
         when('/user-performance/:id', {
             templateUrl: './views/admin-user-view.html',
             controller: 'adminUserController',
-            controllerAs: 'adminUserPage'
+            controllerAs: 'adminUserPage',
+            authenticated: true
         }).
         when('/user-result/:id', {
             templateUrl: './views/user-result-view.html',
             controller: 'userResultController',
-            controllerAs: 'userResultPage'
+            controllerAs: 'userResultPage',
+            authenticated: true
         }).
         when('/logout', {
             templateUrl: './views/logout-view.html'
@@ -77,12 +83,14 @@ myApp.config(['$routeProvider', function ($routeProvider) {
          when('/profile',{
             templateUrl:'./views/profile-view.html',
             controller:'profileController',
-            controllerAs:'profilePage'
+            controllerAs:'profilePage',
+            authenticated: true
         }).
          when('/take-test',{
             templateUrl:'./views/take-test-view.html',
             controller:'takeController',
-            controllerAs:'takePage'
+            controllerAs:'takePage',
+            authenticated: true
         }).
         otherwise(
         {
@@ -91,3 +99,33 @@ myApp.config(['$routeProvider', function ($routeProvider) {
         }
         );
 }]);
+
+myApp.run(["$rootScope", "$location", "SkillService",
+    function ($rootScope, $location, SkillService) {
+        $rootScope.$on("$routeChangeStart",
+            function (event, next, current) {
+                //If user tries to access route which are authenticated 
+                //condition will allow only if he is logged in else 
+                //redirect him back to login page
+                if (next.$$route.authenticated) {
+                    if (!SkillService.isLoggedIn()) {
+                        $location.path("/log-in");
+                    }
+                }
+                //Only Admin can acess these pages
+                if (next.$$route.isAdmin) {
+                    if (!SkillService.checkAdmin()) {
+                        $location.path(current.$$route.originalPath);
+                    }
+                }
+                //If user is logged in and try to access login page
+                //redirect him back to original page
+                if (next.$$route.originalPath == "/log-in") {
+                    if (SkillService.isLoggedIn()) {
+                        console.log("Current route ",current);
+                        console.log("Event route ",next);
+                        $location.path(current.$$route.originalPath);
+                    }
+                }
+            })
+    }]);
