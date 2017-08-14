@@ -48,7 +48,7 @@ myApp.controller('loginController', ['SkillService', '$location', '$rootScope', 
                 if (response.data.error) {
 
                 } else {
-                    SkillService.setToken(main.response.token);
+                    SkillService.setToken(main.response.token,main.response.data.userType);
                     main.regData = "";
                     $location.path('/user-dashboard');
                 }
@@ -67,7 +67,7 @@ myApp.controller('loginController', ['SkillService', '$location', '$rootScope', 
                 if (response.data.error) {
 
                 } else {
-                    SkillService.setToken(main.response.token);
+                    SkillService.setToken(main.response.token,main.response.data.userType);
                     main.logData = '';
                     if (main.response.data.userType == 1) {
                         $location.path('/admin-dashboard');

@@ -15,12 +15,20 @@ myApp.service('SkillService', function ($http, authToken) {
             url: '/users/login'
         })
     }
-    this.setToken = function (token) {
-        return authToken.setToken(token);
+    this.setToken = function (token,userType) {
+        return authToken.setToken(token,userType);
     }
     //Is logged in
     this.isLoggedIn = function () {
         if (authToken.getToken()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+      this.checkAdmin = function () {
+          console.log(authToken.getUserType())
+        if (authToken.getUserType()=='1'    ) {
             return true;
         } else {
             return false;

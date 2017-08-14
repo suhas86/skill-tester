@@ -1,15 +1,24 @@
 myApp.factory('authToken', function ($window) {
     var authTokenFactroy = {}
     //Set token
-    authTokenFactroy.setToken = function (token) {
-        if (token)
+    authTokenFactroy.setToken = function (token,userType) {
+        if (token){
             $window.localStorage.setItem('token', token);
-        else
+             $window.localStorage.setItem('type', userType);
+        }
+            
+        else {
             $window.localStorage.removeItem('token');
+             $window.localStorage.removeItem('type');
+        }
+            
     }
     //Get token
     authTokenFactroy.getToken = function () {
         return $window.localStorage.getItem('token');
+    }
+    authTokenFactroy.getUserType = function () {
+        return $window.localStorage.getItem('type');
     }
     return authTokenFactroy;
 });

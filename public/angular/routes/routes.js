@@ -32,14 +32,16 @@ myApp.config(['$routeProvider', function ($routeProvider) {
             controller: 'adminController',
             // what is the alias of that controller.
             controllerAs: 'adminPage',
-            authenticated: true
+            authenticated: true,
+            isAdmin:true
         }).
         when('/admin-test-edit/:id', {
             templateUrl: './views/admin-test-view.html',
             controller: 'adminTestController',
             // what is the alias of that controller.
             controllerAs: 'ediTestPage',
-            authenticated: true
+            authenticated: true,
+            isAdmin:true
         }).
         when('/user-dashboard', {
             templateUrl: './views/user-dashboard-view.html',
@@ -59,7 +61,8 @@ myApp.config(['$routeProvider', function ($routeProvider) {
             templateUrl: './views/admin-user-view.html',
             controller: 'adminUserController',
             controllerAs: 'adminUserPage',
-            authenticated: true
+            authenticated: true,
+            isAdmin:true
         }).
         when('/user-result/:id', {
             templateUrl: './views/user-result-view.html',
