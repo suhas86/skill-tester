@@ -64,6 +64,16 @@ myApp.config(['$routeProvider', function ($routeProvider) {
         when('/logout', {
             templateUrl: './views/logout-view.html'
         }).
+        when('/forgot-password',{
+            templateUrl:'./views/forgot-password-view.html',
+            controller:'forgotController',
+            controllerAs:'forgotPage'
+        }).
+        when('/reset/:token',{
+            templateUrl:'./views/reset-password-view.html',
+            controller:'resetController',
+            controllerAs:'resetPage'
+        }).
         otherwise(
         {
             //redirectTo:'/'

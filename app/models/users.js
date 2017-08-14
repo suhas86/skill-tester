@@ -9,7 +9,8 @@ var userSchema = new Schema({
     mobileNumber: { type: Number, default: '' },
     password: { type: String, default: '' },
     userType: { type: Number, default: 2 },
-    provider:{type:String,default:'Web'}
+    provider:{type:String,default:'Web'},
+    passwordToken:{type:String,required:false}
 })
 
 userSchema.pre('save', function (next) {

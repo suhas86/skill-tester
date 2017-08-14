@@ -7,9 +7,20 @@ var userModel = mongoose.model('User');
 var responseGenerator = require('./../../libs/responseGenerator');
 var config = require('./../../config/config');
 var jwt = require('jwt-simple');
+var passjwt = require('jsonwebtoken');
+var nodemailer = require('nodemailer');
 
 module.exports.controller = function (app) {
-
+    var client = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: 'abc@gmail.com', // Your email address
+            pass: '123' // Your password
+        },
+        tls: {
+            rejectUnauthorized: false
+        }
+    });
     userRouter.post('/signup', function (req, res) {
         if (req.body.firstName != undefined && req.body.lastName != undefined &&
             req.body.password != undefined && req.body.email != undefined) {
@@ -32,7 +43,7 @@ module.exports.controller = function (app) {
                     var token = jwt.encode(newUser, config.secret);
                     var myResponse = responseGenerator.generate(false, "",
                         200, newUser);
-                    myResponse.token =  token;
+                    myResponse.token = token;
                     /*
                     myMailer.sendMail("Welcome",
                         "Welcome to Ticket Support. Please let us know how can we help you",
@@ -72,7 +83,7 @@ module.exports.controller = function (app) {
                             // return the information including token as JSON
                             var myResponse = responseGenerator.generate(false, "",
                                 200, user);
-                            myResponse.token =  token;
+                            myResponse.token = token;
                             res.send(myResponse);
                         } else {
                             var myResponse = responseGenerator.generate(true, "Please check your password ",
@@ -90,7 +101,123 @@ module.exports.controller = function (app) {
 
     });
 
-    //Get user
+    //Forgot Password Link generate
+    userRouter.post('/forgot-password', function (req, res) {
+        userModel.findOne({
+            email: req.body.email
+        }).select('email firstName').exec(function (err, user) {
+            if (err) {
+                var myResponse = responseGenerator.generate(true, "Oops Something Went Wrong " + err,
+                    500, null);
+                res.send(myResponse);
+            } else if (!user) {
+                var myResponse = responseGenerator.generate(true, "Email not found",
+                    404, null);
+                res.send(myResponse);
+            } else {
+                user.passwordToken = passjwt.sign({
+                    firstName: user.firstName,
+                    email: user.email
+                }, config.secret, {
+                    expiresIn: '24h'
+                });
+                // var token = jwt.encode(user, config.secret);
+                user.save(function (err) {
+                    if (err) {
+                        var myResponse = responseGenerator.generate(true, "Oops Something Went Wrong " + err,
+                            500, null);
+                        res.send(myResponse);
+                    } else {
+                        console.log(user);
+                        // Create e-mail object to send to user
+                        var email = {
+                            from: 'Skill Tester, murthy.suhas@gmail.com',
+                            to: user.email,
+                            subject: 'Reset Password Request',
+                            text: 'Hello ' + user.firstName + ', You recently request a password reset link. Please click on the link below to reset your password:<br><br><a href="http://localhost:3000/#/reset/' + user.passwordToken,
+                            html: 'Hello<strong> ' + user.firstName + '</strong>,<br><br>You recently request a password reset link. Please click on the link below to reset your password:<br><br><a href="http://localhost:3000/#/reset/' + user.passwordToken + '">http://localhost:3000/#/reset/</a>'
+                        };
+                        // Function to send e-mail to the user
+                        client.sendMail(email, function (err, info) {
+                            if (err) {
+                                console.log(err); // If error with sending e-mail, log to console/terminal
+                            } else {
+                                console.log(info); // Log success message to console
+                                console.log('sent to: ' + user.email); // Log e-mail 
+                            }
+                        });
+                        var myResponse = responseGenerator.generate(false, "Instructions has been sent to you E-Mail",
+                            200, null);
+                        res.send(myResponse);
+                    }
+                });
+            }
+        });
+    });
+
+    //Verify for token
+    userRouter.get('/reset-password/:token', function (req, res) {
+        userModel.findOne({
+                passwordToken: req.params.token
+            }).select()
+            .exec(function (err, user) {
+                if (err) {
+                    var myResponse = responseGenerator.generate(true, "Oops Something Went Wrong " + err,
+                        500, null);
+                    res.send(myResponse);
+                } else {
+                    var token = req.params.token;
+                    passjwt.verify(token, config.secret, function (err, decoded) {
+                        if (err) {
+                            var myResponse = responseGenerator.generate(true, "Password link has expired",
+                                500, null);
+                            res.send(myResponse);
+                        } else {
+                            if (!user) {
+                                var myResponse = responseGenerator.generate(true, "Password link has expired",
+                                    500, null);
+                                res.send(myResponse);
+                            } else {
+                                var myResponse = responseGenerator.generate(false, "",
+                                    200, user);
+                                res.send(myResponse);
+                            }
+                        }
+                    })
+                }
+            })
+    });
+
+    //Save new password
+    userRouter.post('/reset-password', function (req, res) {
+        userModel.findOne({
+                _id: req.body.id
+            })
+            .select('firstName email password passwordToken').exec(function (err, user) {
+                if (err) {
+                    var myResponse = responseGenerator.generate(true, "Oops Something Went Wrong " + err,
+                        500, null);
+                    res.send(myResponse);
+                } else {
+                    user.password = req.body.password;
+                    user.passwordToken = false;
+                    user.save(function (err) {
+                        if (err) {
+                            var myResponse = responseGenerator.generate(true, "Oops Something Went Wrong " + err,
+                                500, null);
+                            res.send(myResponse);
+                        } else {
+                            var myResponse = responseGenerator.generate(false, "Password has been updated successfully.Please login",
+                                200, null);
+                            res.send(myResponse);
+                        }
+                    })
+
+                }
+            })
+    })
+
+    //User Auth Middleware
     userRouter.use(function (req, res, next) {
         var token = req.body.token || req.body.query || req.headers['x-access-token'];
 

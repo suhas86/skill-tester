@@ -40,6 +40,27 @@ myApp.service('SkillService', function ($http, authToken) {
             $q.reject({ message: 'User has no token' })
         }
     }
+    this.forgotPassword=function(data){
+        return $http({
+            method:'POST',
+            url:'/users/forgot-password',
+            data:data
+        })
+    }
+      this.resetPassword=function(data){
+        return $http({
+            method:'POST',
+            url:'/users/reset-password',
+            data:data
+        })
+    }
+
+     this.resetPassToken=function(token){
+        return $http({
+            method:'GET',
+            url:'/users/reset-password/'+token
+        })
+    }
 
     /**********Admin Apis ***********************/
     //Create test
