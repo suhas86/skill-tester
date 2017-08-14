@@ -270,13 +270,16 @@ module.exports.controller = function (app) {
     //Save Answer
     testRouter.post('/saveanswer', function (req, res) {
         var ans = req.body;
+        console.log(ans);
         ans.userId = req.decoded._id;
+        var n = ans.timeTaken.toString();
         answer = new answerModel({
             userId: ans.userId,
             testId: ans.testId,
             questionId: ans.questionId,
             givenAnswer: ans.givenAnswer,
-            correctAnswer: ans.correctAnswer
+            correctAnswer: ans.correctAnswer,
+            timeTaken:n,
         });
         answer.save(function (err, response) {
             if (err) {

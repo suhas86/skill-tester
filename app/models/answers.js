@@ -8,7 +8,7 @@ var answerSchema=new Schema({
     creationDate:{type:Date,default:Date.now()},
     givenAnswer:{type:String,required:true},
     correctAnswer:{type:String,required:true},
-    timeTaken:{type:String,default:''}
+    timeTaken:{type:String}
 });
 
 module.exports  = mongoose.model('Answers', answerSchema);

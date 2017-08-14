@@ -9,25 +9,25 @@ myApp.controller('testController', ['SkillService', '$routeParams', '$timeout', 
         main.buttonText = "Next";
         main.score = 0;
         main.testResult = {};
-
+        main.timePerQuest=0;
         //Test Code
         main.counter = 300; //In seconds(default)
         main.endOfTime = false;
         main.onTimeout = function () {
             if (main.counter == 0) {
-                console.log("Inside If");
+                
                 main.endOfTime = true;
                 $timeout.cancel(mytimeout);
                 main.callSubmitTets();
             } else {
-                console.log("Inside else loop")
+               
                 main.counter--;
                 mytimeout = $timeout(main.onTimeout, 1000);
             }
         }
         //  
         main.stop = function () {
-            console.log("Inside cancel");
+            
             $timeout.cancel(mytimeout);
         }
         //Test code ends
@@ -61,11 +61,16 @@ myApp.controller('testController', ['SkillService', '$routeParams', '$timeout', 
             }
             //After answering each question submit the answer before posting the next question
             //construct the data to be sent
+          // main.timePerQuest= main.timePerQuest-(main.counter);
+          var tem= (main.testData.duration*60)-(main.counter)-main.timePerQuest;
+          main.timePerQuest=main.timePerQuest+tem;
+           console.log(tem);
             var data = {
                 testId: main.id,
                 questionId: main.questions[main.questionIndex]._id,
                 givenAnswer: main.test,
-                correctAnswer: main.questions[main.questionIndex].answer
+                correctAnswer: main.questions[main.questionIndex].answer,
+                timeTaken:tem
             }
             //Call Service to submit the answer
             SkillService.saveAnswer(data).then((response) => {
