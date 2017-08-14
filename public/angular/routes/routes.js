@@ -79,6 +79,11 @@ myApp.config(['$routeProvider', function ($routeProvider) {
             controller:'profileController',
             controllerAs:'profilePage'
         }).
+         when('/take-test',{
+            templateUrl:'./views/take-test-view.html',
+            controller:'takeController',
+            controllerAs:'takePage'
+        }).
         otherwise(
         {
             //redirectTo:'/'

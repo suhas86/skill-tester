@@ -43,7 +43,7 @@
         </div>
     </div>
     <!-- Ends Here -->
-    <div class="row">
+    <!--<div class="row">
         
         <div class="col-md-12">
             <h3>List of tests available</h3>
@@ -60,14 +60,14 @@
                     <tr ng-repeat="tests in userDashPage.list">
                         <td>{{tests.name}}</td>
                         <td>{{tests.category}}</td>
-                      <!--  <td><a ng-href="#/take-test/{{tests._id}}">Take Test</td> -->
+                     
                         <td><a ng-click='userDashPage.toggleModal(tests._id)'>Take Test</td>
                     </tr>
                 </tbody>
             </table>
         </div>
         
-    </div>
+    </div>-->
     <div class="row">
         <div class="col-md-12">
              <h3>Tests taken</h3>
@@ -96,7 +96,7 @@
     </div>
 </div>
 
-<modal-dialog show='userDashPage.modalShown' width='750px' height='auto'>
+<!--<modal-dialog show='userDashPage.modalShown' width='750px' height='auto'>
     <h3>Please accept rules before taking test</h3>
     <ol>
         <li>
@@ -110,4 +110,4 @@
     </ol>
     <button type="button" class="btn pull-right" ng-click="userDashPage.takeTest()">I Accept</button>
     <br>
-</modal-dialog>
+</modal-dialog>-->
