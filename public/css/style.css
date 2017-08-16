@@ -243,11 +243,13 @@ footer a:hover, footer a:focus { border-bottom: 1px dotted #19b9e7; }
 .ng-modal-dialog {
   /* A centered div above the overlay with a box shadow. */
   z-index:10000;
-  position: absolute;
-  width: 50%; /* Default */
-
+  
+  width: 100%;/* Default */
+    position: absolute;
+    margin: 0 auto;
+    top: 50%;
   /* Center the dialog */
-  top: 150%;
+ height: 100%;
   left: 50%;
   transform: translate(-50%, -50%);
   -webkit-transform: translate(-50%, -50%);
