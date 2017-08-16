@@ -4,6 +4,10 @@ myApp.controller('adminTestController', ['SkillService', '$routeParams',
         main.testData = {};
         main.id = $routeParams.id;
         main.isSave = true;
+        main.isTError = false;
+        main.isQError = false;
+        main.errorTmessage = "";
+        main.errorQmessage = "";
         //Get Test
         this.getTestById = function (id) {
             SkillService.getTestById(id).then((response) => {
@@ -17,7 +21,8 @@ myApp.controller('adminTestController', ['SkillService', '$routeParams',
         this.updateTest = function (data) {
             SkillService.updateTest(data, main.id).then((response) => {
                 if (response.data.error) {
-
+                    main.isTError = true;
+                    main.errorTmessage = response.data.message
                 } else {
                     main.testData = response.data.data;
                 }
@@ -32,7 +37,8 @@ myApp.controller('adminTestController', ['SkillService', '$routeParams',
 
             SkillService.createQuestion(data).then((response) => {
                 if (response.data.error) {
-
+                    main.isQError = true;
+                    main.errorQmessage = response.data.message
                 } else {
                     //   console.log(response.data);
                     main.qData = '';
@@ -53,31 +59,38 @@ myApp.controller('adminTestController', ['SkillService', '$routeParams',
         this.updateQuestion = function () {
             console.log(main.qData);
             SkillService.updateQuestion(main.qData, main.id).then((response) => {
-                main.qData = '';
-                main.testData = response.data.data;
+                if (response.data.error) {
+                    main.isQError = true;
+                    main.errorQmessage = response.data.message
+                } else {
+                    main.qData = '';
+                    main.testData = response.data.data;
+                }
+
+
             }, (err) => {
                 alert("Oops something gone wrong");
             })
         }
 
         //Delete question 
-        this.deleteQuestion=function(questId){
-            SkillService.deleteQuestion(main.id,questId).then((response)=>{
-                if(response.data.error){
+        this.deleteQuestion = function (questId) {
+            SkillService.deleteQuestion(main.id, questId).then((response) => {
+                if (response.data.error) {
                     alert(message);
                 } else {
                     console.log(response.data);
                     this.getTestById(main.id)
                     alert("Deleted successfully")
                 }
-            },(err)=>{
+            }, (err) => {
                 alert("Oops something gone wrong");
             })
         }
         //Clear the data
-        this.clear=function(){
-            main.isSave=true;
-            main.qData='';
+        this.clear = function () {
+            main.isSave = true;
+            main.qData = '';
         }
 
         //Get Test by Id

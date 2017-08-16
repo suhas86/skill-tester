@@ -38,6 +38,7 @@ myApp.controller('adminController', ['SkillService','$location',
                 if (main.response.error) {
 
                 } else {
+                    alert("Test created successfully");
                     main.testData = "";
                     main.getTestList();
                 }

@@ -18,6 +18,9 @@
             </div>
             <button type="submit" ng-disabled="testForm.$invalid" class="btn">Submit</button>
         </form>
+        <div class="alert alert-danger" ng-show="ediTestPage.isTError">
+            {{ediTestPage.errorTmessage}}
+        </div>
     </div>
     <div class="row">
         <div class="col-md-6">
@@ -37,43 +40,47 @@
                         <td>{{question.question}}</td>
                         <td>{{question.answer}}</td>
                         <td><a ng-click="ediTestPage.getQuestion(question)">Edit</a></td>
-                         <td><a ng-click="ediTestPage.deleteQuestion(question._id)">Delete</a></td>
+                        <td><a ng-click="ediTestPage.deleteQuestion(question._id)">Delete</a></td>
                     </tr>
                 </tbody>
             </table>
         </div>
         <div class="col-md-6">
-           <h2>Add Question</h2>
-           <p>Add Questions with four options along with correct answer</p>
-           <form name="qForm" ng-submit="ediTestPage.createQuestion(ediTestPage.qData)">
-            <div class="form-group">
-                <input type="text" placeholder="Question" class="form-control" id="question" ng-model="ediTestPage.qData.question" 
-                name="question" required>
+            <h2>Add Question</h2>
+            <p>Add Questions with four options along with correct answer</p>
+            <form name="qForm" ng-submit="ediTestPage.createQuestion(ediTestPage.qData)">
+                <div class="form-group">
+                    <input type="text" placeholder="Question" class="form-control" id="question" ng-model="ediTestPage.qData.question" name="question"
+                        required>
+                </div>
+                <div class="form-group">
+                    <input type="text" placeholder="Option 1" class="form-control" id="option1" ng-model="ediTestPage.qData.option1" name="question"
+                        required>
+                </div>
+                <div class="form-group">
+                    <input type="text" placeholder="Option 2" class="form-control" id="option2" ng-model="ediTestPage.qData.option2" name="question"
+                        required>
+                </div>
+                <div class="form-group">
+                    <input type="text" placeholder="Option 3" class="form-control" id="option3" ng-model="ediTestPage.qData.option3" name="question"
+                        required>
+                </div>
+                <div class="form-group">
+                    <input type="text" placeholder="Option 4" class="form-control" id="option4" ng-model="ediTestPage.qData.option4" name="question"
+                        required>
+                </div>
+                <div class="form-group">
+                    <input type="text" placeholder="Correct Answer" class="form-control" id="answer" ng-model="ediTestPage.qData.answer" name="question"
+                        required>
+                </div>
+                <button ng-show="ediTestPage.isSave" type="submit" ng-disabled="qForm.$invalid" class="btn">Save Question</button>
+                <button ng-show="!ediTestPage.isSave" type="button" ng-click="ediTestPage.updateQuestion()" ng-disabled="qForm.$invalid"
+                    class="btn">Update Question</button>
+                <button type="button" ng-click="ediTestPage.clear()" class="btn">Clear</button>
+            </form>
+            <div class="alert alert-danger" ng-show="ediTestPage.isQError">
+                {{ediTestPage.errorQmessage}}
             </div>
-            <div class="form-group">
-                <input type="text" placeholder="Option 1" class="form-control" id="option1" ng-model="ediTestPage.qData.option1" 
-                name="question" required>
-            </div>
-            <div class="form-group">
-                <input type="text" placeholder="Option 2" class="form-control" id="option2" ng-model="ediTestPage.qData.option2" 
-                name="question" required>
-            </div>
-            <div class="form-group">
-                <input type="text" placeholder="Option 3" class="form-control" id="option3" ng-model="ediTestPage.qData.option3" 
-                name="question" required>
-            </div>
-            <div class="form-group">
-                <input type="text" placeholder="Option 4" class="form-control" id="option4" ng-model="ediTestPage.qData.option4" 
-                name="question" required>
-            </div>
-            <div class="form-group">
-                <input type="text" placeholder="Correct Answer" class="form-control" id="answer" ng-model="ediTestPage.qData.answer" 
-                name="question" required>
-            </div>
-            <button ng-show="ediTestPage.isSave" type="submit" ng-disabled="qForm.$invalid"  class="btn">Save Question</button>
-            <button ng-show="!ediTestPage.isSave" type="button" ng-click="ediTestPage.updateQuestion()" ng-disabled="qForm.$invalid"  class="btn">Update Question</button>
-            <button type="button" ng-click="ediTestPage.clear()"  class="btn">Clear</button>
-           </form>
         </div>
     </div>
 </div>

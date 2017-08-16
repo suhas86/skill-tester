@@ -51,7 +51,15 @@
     <div class="row">
         <div class="col-md-12">
             <h3>List of users</h3>
-             <button class="btn pull-right" ng-click="adminPage.getAll()">View All User Test Results</button>
+            <div class="row">
+                <div class="col-md-6">
+                    <input type="text" class="form-control" name="search" ng-model="search" 
+                id="search" placeholder="Search....">
+                </div>
+                <div class="col-md-6">
+                     <button class="btn pull-right" ng-click="adminPage.getAll()">View All User Test Results</button>
+                </div>
+            </div>
                 <br>
              <table class="table table-bordered">
                 <thead>
@@ -64,7 +72,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="user in adminPage.users">
+                    <tr ng-repeat="user in adminPage.users | filter:search">
                         <td>{{user.firstName}} {{user.lastName}}</td>
                         <td>{{user.email}}</td>
                         <td>{{user.mobileNumber}}</td>
