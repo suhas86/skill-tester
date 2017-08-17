@@ -18,7 +18,7 @@ app.use(bodyParser.json({ limit: '10mb', extended: true }));
 app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
 
 
-mongoose.connect('mongodb://localhost/skill-tester1');
+mongoose.connect('mongodb://suhas:ishaan86@ds149433.mlab.com:49433/skill-tester-final');
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, '#MongoDB - connection error'));
