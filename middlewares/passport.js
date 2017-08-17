@@ -33,7 +33,7 @@ module.exports = function (app, passport) {
     passport.use(new FacebookStrategy({
         clientID: '429610624105495',
         clientSecret: '4cd3fb0accd09370b2c8fc2ec26fbac1',
-        callbackURL: "http://localhost:3000/auth/facebook/callback",
+        callbackURL: "https://young-shore-27367.herokuapp.com/auth/facebook/callback",
         profileFields: ['email']
     },
         function (accessToken, refreshToken, profile, done) {
@@ -81,7 +81,7 @@ module.exports = function (app, passport) {
     passport.use(new GoogleStrategy({
         clientID: '996994656492-o121j79gk0g2vjhe52g6fqmel80l6tii.apps.googleusercontent.com',
         clientSecret: 'Dcvbt0m48RbqVxMBi7T9uHjB',
-        callbackURL: "http://localhost:3000/auth/google/callback"
+        callbackURL: "https://young-shore-27367.herokuapp.com/auth/google/callback"
     },
         function (accessToken, refreshToken, profile, done) {
             User.findOne({
@@ -113,7 +113,7 @@ module.exports = function (app, passport) {
     passport.use(new TwitterStrategy({
         consumerKey: 'oM0slbzGgEyBuBSdaDKpDxdb5', // Replace with your Twitter Developer App consumer key
         consumerSecret: 'QSr2LMIet8yh3j75Ho0hG81ZCH7Jul4cjYn7c6lhSxwMSF4Hke', // Replace with your Twitter Developer App consumer secret
-        callbackURL: "http://localhost:3000/auth/twitter/callback", // Replace with your Twitter Developer App callback URL
+        callbackURL: "https://young-shore-27367.herokuapp.com/auth/twitter/callback", // Replace with your Twitter Developer App callback URL
         userProfileURL: "https://api.twitter.com/1.1/account/verify_credentials.json?include_email=true"
     },
         function (token, tokenSecret, profile, done) {
