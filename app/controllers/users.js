@@ -134,8 +134,8 @@ module.exports.controller = function (app) {
                             from: 'Skill Tester, murthy.suhas@gmail.com',
                             to: user.email,
                             subject: 'Reset Password Request',
-                            text: 'Hello ' + user.firstName + ', You recently request a password reset link. Please click on the link below to reset your password:<br><br><a href="http://localhost:3000/#/reset/' + user.passwordToken,
-                            html: 'Hello<strong> ' + user.firstName + '</strong>,<br><br>You recently request a password reset link. Please click on the link below to reset your password:<br><br><a href="http://localhost:3000/#/reset/' + user.passwordToken + '">http://localhost:3000/#/reset/</a>'
+                            text: 'Hello ' + user.firstName + ', You recently request a password reset link. Please click on the link below to reset your password:<br><br><a href="https://young-shore-27367.herokuapp.com/#/reset/' + user.passwordToken,
+                            html: 'Hello<strong> ' + user.firstName + '</strong>,<br><br>You recently request a password reset link. Please click on the link below to reset your password:<br><br><a href="https://young-shore-27367.herokuapp.com/#/reset/' + user.passwordToken + '">https://young-shore-27367.herokuapp.com/#/reset/</a>'
                         };
                         // Function to send e-mail to the user
                         client.sendMail(email, function (err, info) {
